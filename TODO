@@ -1,12 +1,22 @@
 TODO:
 =====
 
+Assigned
+--------
 (Brice) implement a messeging protocol between Arduino and computer.
 (Ed) process a bytestream onto the LED cube
 (Sam) finish Gui
 (Sam) create a state array to bytestream converter
 (Mike) Create a processing class for a 3D Ising model
 
+Unassigned
+----------
+Code review + cleanup
+Build cube
+Converting ledstates to bytestream
+create a wrapper class with toggles around simCube and realCube
+create a guil element to toggle live update
+Write the readme
 
 DONE:
 =====
