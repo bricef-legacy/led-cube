@@ -11,6 +11,7 @@ Assigned
 
 Unassigned
 ----------
+Cleanup API making sense of x,y,z when building cube state array
 Code review + cleanup
 Build cube
 Converting ledstates to bytestream
