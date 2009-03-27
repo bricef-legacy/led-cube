@@ -1,0 +1,6 @@
+NOTES
+=====
+
+Could we find a way to interrupt only when we are writing to the arduino using the USB cable?
+Is the USB cable on the TWI (Twin Wire Interface) or the SPI (Serial Peripheral interface)?
+The TWI comes with a handy interrupt that we could use. This would allow us to draw as quickly as possible.
