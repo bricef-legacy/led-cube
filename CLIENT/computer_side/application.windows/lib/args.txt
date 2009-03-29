@@ -1,3 +1,0 @@
-
-computer_side
-computer_side.jar,core.jar,serial.jar,RXTXcomm.jar
