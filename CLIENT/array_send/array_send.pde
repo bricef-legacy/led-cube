@@ -5,7 +5,7 @@ Serial myPort;  // Create object from Serial class
 int val;        // Data received from the serial port
 public static final int MAX_WAIT_MILLIS = 1000;
 int returned=0;
-int del=15;
+int del=0;
 byte[] buffer = {12,11,10,9,8,7,6,5,4,3,2,1,0};
 byte[][] doubleBuffer = { {31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0},
                           {31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0},

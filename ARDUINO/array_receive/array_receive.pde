@@ -11,7 +11,6 @@
 #define RESET_TIMER2 TCNT2 = 0
 
 byte cubeDraw[8][32];
-byte incomingBuffer[256];
 
 void setup(void) {
 	/**
@@ -46,16 +45,13 @@ void setup(void) {
 int i=0;
 int val=0;
 byte buffer[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
-byte doubleBuffer[2][13] = {
-                {0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0}
-                };
+byte doubleBuffer[8][32];
 boolean checking = true;
 void loop(void){
   
         /*
          * INIT
-         * CHECKED @ 115200 baud
+         * CHECKED @ 115200 baud winVista
          */
          if(waitForOpcode(INIT_IS_READY)){
              Serial.print((byte)INIT_OK,BYTE);
@@ -74,8 +70,8 @@ void loop(void){
            //send ACK. if ACK -ve, layer stays same. if ACK +ve, layer +=1;
          //when byte is endcube send cubeACK, wait for begincube
         
-        int numlayers=2;
-        int numbytes=13;
+        int numlayers=8;
+        int numbytes=32;
         
         if(waitForOpcode(BEGIN_CUBE)){digitalWrite(13,HIGH);};
         for(int j=0; j<numlayers;j++){
