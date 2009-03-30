@@ -3,22 +3,32 @@ TODO:
 
 Assigned
 --------
+(brice) remove debug markers and variables in ARDUINO/array_receive/array_receive.pde
+(brice) test serial code on NIX
 (Ed) process a bytestream onto the LED cube
-(Sam) finish Gui
 (Sam) create a state array to bytestream converter
 (Mike) Create a processing class for a 3D Ising model
 
+
 Unassigned
 ----------
+maybe? Implement arbitrary sketch loading via gui to allow end user to write own display loop using api 
+Test gui and serial exec on MAC
+Modify gui to use the CLIENT sketches for communication with arduino
+	-> port selection using Serial.list() from processing.serial
+Modify gui to incorporate image load/save from file
 Cleanup API making sense of x,y,z when building cube state array
 Code review + cleanup
 Build cube
 create a wrapper class with toggles around simCube and realCube
-create a guil element to toggle live update
+Test liveupdate speed vs simualtion speed. 
+create a gui element to toggle live update
 Write the readme
 
 DONE:
 =====
+(Ed) Use an image file to store the states.
+(Sam) finish Gui
 (Brice) implement a messeging protocol between Arduino and computer.
 (Chris) create a visualisation toolkit 
 
