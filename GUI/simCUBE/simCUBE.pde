@@ -37,6 +37,14 @@ void setup()
   */
   largeSC(mycube, 8);
   
+  /**
+   * ED: load / save functions. [Uncomment to use]
+   * Important: DONT USE TIF, processing doesent like opened files.
+   */
+   
+  //saveCube(mycube, "test.png");
+  //loadCube(mycube, "test.png");
+  
   //draw cube
   mycube.drawCube();
 }

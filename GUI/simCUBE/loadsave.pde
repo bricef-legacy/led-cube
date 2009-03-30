@@ -1,8 +1,13 @@
-/*
+/**
+   * Load / Save functions for saving the cube to a 2D bitmap Image
+   * Important: DONT USE TIF, processing doesent like opened files.
+   * Edward Overton
+   */
+
 void saveCube(LedCube cube, String filename)
 {
   int a,b,c;
-  PImage myimage = new PImage(64, 8, RGB);
+  PGraphics myimage = createGraphics(64, 8, P2D);
   
   int cubestates [][][] = new int[8][8][8];
   cubestates = cube.readCube();
@@ -34,5 +39,5 @@ void loadCube(LedCube cube, String filename)
   
   cube.setCube(cubestates);
   
-}*/
+}
 
