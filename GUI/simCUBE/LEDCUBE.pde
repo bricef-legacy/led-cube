@@ -28,7 +28,7 @@ class LedCube{
          * Here we define our 3d Cube
          */
          
-         int cubeState[][][] = new int[8][8][8]; // this is the variable used to export the cube, in the ReadCube function
+         int cubeState[][][]; // this is the variable used to export the cube, in the ReadCube function
          final static int CUBESIZE = 8; //size of cube
          final static float LEDSPACE = 40; //led spacing
          final static float startX = -CUBESIZE*40/2; //XYZ starting locations. eg. location of first LED (X,Y,Z)

@@ -6,11 +6,13 @@
  
 float a = 0.0; //amount of rotation
 LedCube mycube; // the LEDCube class (this is what well be playing with)
+
+//Drawing libs, DONT EVEN THINK ABOUT TOUCHING THESE!
 import processing.opengl.*;
 import javax.media.opengl.*;
 
 // Sam's gui stuff
-//GUI cubeGUI;
+GUI cubeGUI;
 
 //the setup function runs once when the programs ran, the draw function below is looped through continuosly when the programs running
 void setup() 
@@ -24,18 +26,16 @@ void setup()
 
   // now we create our ledcube. its a class so we need to use the new LedCube();
   mycube = new LedCube();
-  //cubeGUI = new GUI(this);
+  
+  //initialise the GUI
+  cubeGUI = new GUI(this);
  
   /*
   *SAM
   *call drawing methods from drawingclass, passing arguments of mycube and size (8)
+  *This first method is 'splash screen' as such
   */
-  //drawMiller(mycube, 1, 1, 1, 8);
-  //largeFCC(mycube,8);
-  
-  //saveCube(mycube, "E:/test.bmp");
-  
-  //loadCube(mycube, "E:/test.bmp");
+  largeSC(mycube, 8);
   
   //draw cube
   mycube.drawCube();
@@ -66,7 +66,7 @@ void draw() {
   GL gl=((PGraphicsOpenGL)g).beginGL();
   gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
   ((PGraphicsOpenGL)g).endGL();
-  //cubeGUI.getGUI().draw();
+  cubeGUI.getGUI().draw();
 }
 
 
