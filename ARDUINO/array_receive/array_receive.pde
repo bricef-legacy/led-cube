@@ -102,15 +102,6 @@ boolean waitForOpcode(byte opcode){
     return true;
 }
 
-
-/**
- * Handles the timer 2 overflow interrupt. 
- */
-ISR(TIMER2_OVF_vect) {//handle timer 2 overflow (draw cube)
-	//draw the cube
-	RESET_TIMER2;//reset the timer
-};
-
 void displayCube(){
 	//do nothing
 }

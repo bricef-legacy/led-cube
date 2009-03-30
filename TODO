@@ -5,7 +5,7 @@ Assigned
 --------
 (brice) remove debug markers and variables in ARDUINO/array_receive/array_receive.pde
 (brice) test serial code on NIX
-(Ed) process a bytestream onto the LED cube
+(Ed) process a bytestream onto the LED cube [Done Codeing, Needs testing on wed. (added to brices Prog)]
 (Sam) create a state array to bytestream converter
 (Mike) Create a processing class for a 3D Ising model
 
