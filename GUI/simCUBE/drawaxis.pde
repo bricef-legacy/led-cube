@@ -1,3 +1,4 @@
+
 void drawAxis(float axissize, float arrowszie){
   
   translate(-axissize/2, axissize/2, -axissize/2);
@@ -11,6 +12,13 @@ void drawAxis(float axissize, float arrowszie){
       vertex(axissize-arrowszie, -arrowszie, 0);
     endShape();
     
+    fill(255,0,0);
+    pushMatrix();
+    translate(axissize/4,0,0);
+    text("X", 15, 30);
+    popMatrix();
+    noFill();
+    
     stroke(0, 255, 0);
     beginShape(); //Y-Axis
       vertex(0, 0, 0);
@@ -20,6 +28,14 @@ void drawAxis(float axissize, float arrowszie){
       vertex(0, -arrowszie, axissize-arrowszie);
     endShape();
     
+    fill(0,255,0);
+    pushMatrix();
+    translate(0,0,axissize);
+    rotateY(PI/2);
+    text("Y", 15, 30);
+    popMatrix();
+    noFill();
+    
     stroke(0, 0, 255);
     beginShape(); //Z-Axis
       vertex(0, 0, 0);
@@ -28,4 +44,12 @@ void drawAxis(float axissize, float arrowszie){
       vertex(0, -axissize, 0);
       vertex(-arrowszie, -axissize+arrowszie, 0);
     endShape();
+    
+    fill(0,0,255);
+    pushMatrix();
+    translate(0,-axissize,0);
+    //rotateY(PI/2);
+    text("Z", 15, 30);
+    popMatrix();
+    noFill();
 }

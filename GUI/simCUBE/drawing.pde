@@ -81,7 +81,7 @@ void largeBCC(LedCube c, int s){
       
         
       }}}
-      if(z == 0){
+/*[AXIS]   if(z == 0){
         if( y ==0){
       c.setLED(1, x, y, z);
         }
@@ -91,7 +91,7 @@ void largeBCC(LedCube c, int s){
       }
       if(x == 0 && y ==0){
        c.setLED(1, x, y, z); 
-      }
+      }*/
     }}}
 
 }
@@ -105,14 +105,14 @@ void largeFCC(LedCube c, int s){
       
           //draws axis
   
-     
+/*[AXIS]     
   if(y==0 && z ==0){
        c.setLED(1, x, y, z);}
   if(y==0 && x ==0){
        c.setLED(1, x, y, z);}  
   if(x==0 && z ==0){
        c.setLED(1, x, y, z);}
-        
+**/       
         //corner code
       if( z==1 || z == 2 || z == 6 || z == 7){
         if( x==1 || x == 2 || x == 6 || x == 7){
@@ -265,14 +265,14 @@ void largeSC(LedCube c, int s){
       
           //draws axis
   
-     
+/*[AXIS]     
   if(y==0 && z ==0){
        c.setLED(1, x, y, z);}
   if(y==0 && x ==0){
        c.setLED(1, x, y, z);}  
   if(x==0 && z ==0){
        c.setLED(1, x, y, z);}
-
+*/
 
 //draws lattice
      
@@ -299,7 +299,7 @@ void miller (LedCube c, int s, int h, int k, int l){
          for(int x = 0; x < s; x++){
            for(int d = -10; d<10; d++){
              
-             //axis
+/*[AXIS]             //axis
              if(y==0 && z ==0){
        c.setLED(1, x, y, z);}
   if(y==0 && x ==0){
@@ -308,7 +308,7 @@ void miller (LedCube c, int s, int h, int k, int l){
        c.setLED(1, x, y, z);}
        
        //end axis
-       
+*/       
        //draw plane..
          if(l!=0){  
     if(z==((-1*x*h/l)-(y*k/l)+(d*7/l)))

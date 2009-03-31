@@ -3,7 +3,8 @@
  * Edd Overton 03/09
  * Simulates the led cube and allows drawings and changes of mode
  */
- 
+
+PFont font;
 float a = 0.0; //amount of rotation
 LedCube mycube; // the LEDCube class (this is what well be playing with)
 
@@ -24,6 +25,9 @@ void setup()
   background(0);
   lights();
   translate(width/2, height/2);
+  
+  font = loadFont("CourierNew36.vlw");
+  textFont(font); 
 
   // now we create our ledcube. its a class so we need to use the new LedCube();
   mycube = new LedCube();
