@@ -1,7 +1,7 @@
 /**
    * Load / Save functions for saving the cube to a 2D bitmap Image
    * Important: DONT USE TIF, processing doesent like opened files.
-   * Edward Overton
+   * @author Edward Overton
    */
 
 void saveCube(LedCube cube, String filename)

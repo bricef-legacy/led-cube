@@ -19,6 +19,7 @@ void setup()
 {
   //here we setup the display window, colours and lighting.
   size(800, 600, OPENGL);
+  hint(ENABLE_OPENGL_4X_SMOOTH); //enable beautiful antialiasing
   noStroke();
   background(0);
   lights();
@@ -43,7 +44,7 @@ void setup()
    */
    
   //saveCube(mycube, "test.png");
-  //loadCube(mycube, "test.png");
+  //loadCube(mycube, "test.gif");
   
   //draw cube
   mycube.drawCube();
@@ -56,16 +57,30 @@ void draw() {
   background(0);
   noStroke();
   lights();
-  pushMatrix();
-  translate(width/2, height/2); //this function translates the drawing to the centre of the window
- // ROTATION code
+  
+  // rotate me a little
   a += 0.01/2;
   if(a > TWO_PI) { 
     a = 0.0; 
   }
+  
+  //Draw Axis
+  pushMatrix();
+  translate(100, height-100); //this function translates the drawing to the centre of the window
   rotateY(a);
   rotateZ(0.01/2);
-
+  noFill();
+  smooth();
+  strokeWeight(1.5);
+  drawAxis(75.0,10.0);
+  popMatrix();
+  
+  
+  //Draw LED Cube.
+  pushMatrix();
+  translate(width/(1.7), height/1.9); //this function translates the drawing to the centre of the window
+  rotateY(a);
+  rotateZ(0.01/2);
   //we now draw the new cube on our screen
   mycube.drawCube();
 
@@ -76,6 +91,3 @@ void draw() {
   ((PGraphicsOpenGL)g).endGL();
   cubeGUI.getGUI().draw();
 }
-
-
-
