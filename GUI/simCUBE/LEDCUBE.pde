@@ -1,5 +1,6 @@
 /**
  * LED CUBE Implementation, has all functions drscribed in the CORE API. + some extra for drawing...
+ * NB: this verisn contains Layer drawing debugging tool: ability to only draw one layer!
  */
 
 
@@ -22,6 +23,8 @@ class LedCube{
   final static int RED = 1;
   final static int GREEN = 2;
   final static int ORANGE = 3;
+  
+  int onlylayer = -1;
 
 
   /**
@@ -55,6 +58,10 @@ class LedCube{
   /*
           * Added function to draw the cube...
    */
+   
+/*D*/ void setOnly(int only){
+       onlylayer = only;
+     }
 
   void drawCube(){
     
@@ -62,7 +69,8 @@ class LedCube{
     for (int x = 0; x<CUBESIZE; x++){
       for (int y = 0; y<CUBESIZE; y++){
         for (int z = 0; z<CUBESIZE; z++){
-          mycube[x][y][z].drawLED();
+    /*D*/   if ((onlylayer<0) || (onlylayer==z)) 
+                  mycube[x][y][z].drawLED();
           //mycube[x][y][z].setXYZ(startX + float(x)*LEDSPACE, startY + float(y)*LEDSPACE, startZ + float(z)*LEDSPACE);
         }
       }
@@ -171,6 +179,78 @@ class LedCube{
     }
 
     return cubeState;
+  }
+  
+  public byte[][] getByteStream(){ 
+    
+    /*
+     * @Authors: Samuel Dove, Edward Overton.
+     * Initial Work done by Sam.
+     * tweaked and incoperated into LEDCUBE class done by Edward.
+     *
+     *  @About: Trying to solve byte array problem.
+     *          Converting the data stored in the computer to draw the cube, to a ByteStream which can be written onto the cube
+     */
+    
+    byte[][] stream = new byte[8][32];
+    
+    byte temp;
+    
+    //lets loop through z
+    int x,y,i;
+    for (int z=0; z<8; z++){
+      
+      //loop through all x'es. inside the loop the 4 (2nd half Green, Red, 1st half Greem, Red) different 'y' bytes will be calculated (for a given x)
+      //and each written to the correct part of the array.
+      for (x=7; x>=0; x--){
+        
+        temp = 0x00;//temp is the byte were manipulating, initilised each time.
+        //looping through the bottom block of y's (these need to be written first)
+        for (y=3; y<8; y++){
+        
+          //If green LED needs to be on
+          if ( (mycube[x][y][z].getState() == GREEN) || (mycube[x][y][z].getState() == ORANGE)){
+            //turn the corresponding bit on, done by shifting 00000001 to the correct bit, then using an OR opertation.
+            //remenber 8 > y > 3, so to put the correct bit in the 0-4 range we need to subtract4.
+            temp |= ( 0x01 << (y-4) );
+          }
+        }  
+        //okay, now lets write the bits to the array... remenber the 0th element needs to be written first.
+        stream[z][7-x] = temp;
+
+
+        //repeating abouve for red
+        temp = 0x00;
+        for (y=3; y<8; y++)
+          if ( (mycube[x][y][z].getState() == RED) || (mycube[x][y][z].getState() == ORANGE)){ //this time we are setting the RED led.
+            temp |= ( 0x01 << (y-4) );
+        }
+        stream[z][8+7-x] = temp; // we need to manipulate the array 8 elements further along.
+        
+        //now we shall do the first half (y:0-4)
+        temp = 0x00;
+        for (y=0; y<4; y++)
+          if ( (mycube[x][y][z].getState() == GREEN) || (mycube[x][y][z].getState() == ORANGE)){
+            temp |= ( 0x01 << (y) ); //no need to subtract 4 now, scince y ranges from 0-3
+          }
+        stream[z][16+7-x] = temp; //we now need to write into the array between 15-23
+        
+        //now doing the first red half.
+        temp = 0x00;
+        for (y=0; y<4; y++)
+          if ( (mycube[x][y][z].getState() == RED) || (mycube[x][y][z].getState() == ORANGE)){
+            temp |= ( 0x01 << (y) );
+          }
+        stream[z][24+7-x] = temp;
+        
+      
+    }
+  }
+    
+    
+    
+    return stream;
+    
   }
 
 }
