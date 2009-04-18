@@ -31,7 +31,7 @@ ISR(TIMER2_OVF_vect) { //handle timer 2 overflow (draw cube)
   //if not the last layer, set the layer initiator pin low, move to next layer
   //or we are on the last layer, so set layer initiator pin high, and set the next layer = 0
   if (cur_layer != 7){
-    if (cur_layer = 0) digitalWrite(LAYERTOG, LOW);
+    if (cur_layer == 0) digitalWrite(LAYERTOG, LOW);
     cur_layer++;
   }else{
     digitalWrite(LAYERTOG, HIGH);

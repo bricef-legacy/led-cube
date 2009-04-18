@@ -63,7 +63,7 @@ import processing.serial.*;
     
     //first off we initilise the serial port, and get a data link.
     println(Serial.list());
-    String portName = Serial.list()[1];
+    String portName = Serial.list()[comport];
     myPort = new Serial(parentapp, portName, 115200);//must match the baud rate on the arduino.
     
     //now lets do the main loop
