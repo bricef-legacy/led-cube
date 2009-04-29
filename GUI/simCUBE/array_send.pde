@@ -88,10 +88,12 @@ import processing.serial.*;
         print(".");
         SSend(INIT_IS_READY);
         returned=myPort.read();
+        println(returned);
       }
+      returned = 0;
       println("Arduino listening.");
       writeCube();
-      
+
     }
     
   }
@@ -116,14 +118,10 @@ import processing.serial.*;
          ssec = second(); smil = millis();
          
         SSend(BEGIN_CUBE);  
+        println(myPort.read());
         for(int j=0; j<doubleBuffer.length;j++){
           println("Transmitting layer "+str(j));
           SSend(BEGIN_LAYER);
-          
-          //Write can handle an array of bytes..
-         /* for(int i=0; i<doubleBuffer[j].length; i++){
-            SSend(doubleBuffer[j][i]);
-          }*/
           
           myPort.write(doubleBuffer[j]);
           
@@ -185,6 +183,7 @@ import processing.serial.*;
   
   void SSend(int toSend){
     myPort.write(toSend);
+    //println(myPort.read());
       delay(del);
   }
 }
