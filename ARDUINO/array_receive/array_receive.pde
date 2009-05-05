@@ -6,9 +6,23 @@
  */
 #include "opcodes.h"
 
-#define MAX_WAIT_MILLIS 1000
-
+/*---Timer interrupt stuff---*/
 #define RESET_TIMER2 TCNT2 = 0
+
+/*---different waits for timeouts---*/
+#define MAX_WAIT_MILLIS 500
+#define MAX_LAYER_WAIT 25
+#define ERROR_DURATION 250
+
+/*---State machine states---*/
+#define INIT_STATE 0
+#define WAIT_BEGIN_CUBE 1
+#define WAIT_BEGIN_LAYER 2
+#define RECEIVING_LAYER 3
+#define WAIT_LAYER_END 4
+#define ERROR_STATE 5
+#define WAIT_END_CUBE 6
+
 
 byte cubeDraw[8][32];
 
@@ -33,69 +47,133 @@ void setup(void) {
 	 * Begin serial communications
 	 */
 	Serial.begin(115200);
-	
-	/**
-	 * Initialise the Bytestream buffer to null
-	 */
-	//TODO
-       
-	
+        pinMode(12, OUTPUT);
+
 }
 
 int i=0;
 int val=0;
-byte buffer[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+
 byte doubleBuffer[8][32];
+int numbytes = 31;
 boolean checking = true;
+byte status=INIT_STATE;
+int currentLayer =0;
+
+
+
 void loop(void){
-  
-        /*
-         * INIT
-         * CHECKED @ 115200 baud winVista
-         */
-         if(waitForOpcode(INIT_IS_READY)){
-             Serial.print((byte)INIT_OK,BYTE);
-         }else{
-          for(;;){
-           Serial.print(ERROR,BYTE);
-          } 
-         };
-        
-        
-       //wait for begincube
-         //for layer in layers
-           //wait for begin layer
-           // -> when beginlayer write bytes to layer array until byte is endlayer. or array is full.
-           //check layer for parity,
-           //send ACK. if ACK -ve, layer stays same. if ACK +ve, layer +=1;
-         //when byte is endcube send cubeACK, wait for begincube
-        
-        int numlayers=8;
-        int numbytes=32;
-        
-        if(waitForOpcode(BEGIN_CUBE)){digitalWrite(13,HIGH);};
-        for(int j=0; j<numlayers;j++){
-          if(waitForOpcode(BEGIN_LAYER)){digitalWrite(12,HIGH);};
-            for(int i=0; i<numbytes; i++){
-                   if (Serial.available()){
-	    	         val = Serial.read();
-                        doubleBuffer[j][i]=val;
-                        Serial.print(val,BYTE);
-                     }
-            }
-            if(waitForOpcode(END_LAYER)){digitalWrite(11,HIGH);};
-            Serial.print(LAYER_ACK_SUCCESS,BYTE);
-        }
-        if(waitForOpcode(END_CUBE)){digitalWrite(10, HIGH);};
-        Serial.print(CUBE_SUCCESS,BYTE);
-          
+switch(status){
+	case INIT_STATE:
+		SMClean();
+		if(waitForOpcode(INIT_IS_READY)){
+			SSend(INIT_OK);
+			status=WAIT_BEGIN_CUBE;
+		}else{
+			status=ERROR_STATE;
+		};
+		break;
+		
+	case WAIT_BEGIN_CUBE:
+		if(waitForOpcode(BEGIN_CUBE)){
+			status=WAIT_BEGIN_LAYER;
+		}else{
+			status=ERROR_STATE;
+		};
+		break;
+		
+	case WAIT_BEGIN_LAYER:
+		if(waitForOpcode(BEGIN_LAYER)){
+			status=RECEIVING_LAYER;
+		}else{
+			status=ERROR_STATE;
+		};
+		break;
+		
+	case RECEIVING_LAYER:
+		if(getLayer(currentLayer)){
+			status=WAIT_LAYER_END;
+		}else{
+			SSend(LAYER_ACK_FAIL);
+			status=WAIT_BEGIN_LAYER;
+                }
+		break;
+		
+	case WAIT_LAYER_END: 
+		if(waitForOpcode(END_LAYER)){
+                        SSend(LAYER_ACK_SUCCESS);
+			nextLayer();
+			if(currentLayer==8){
+				status=WAIT_END_CUBE;
+			}else{
+				status=WAIT_BEGIN_LAYER;
+                        };
+		}else{
+			status=ERROR_STATE;
+		};
+		break;
+		
+	case ERROR_STATE:
+		sendErrorSignal();
+		status=INIT_STATE;
+		break;
+		
+	case WAIT_END_CUBE:
+		if(waitForOpcode(END_CUBE)){
+                        SSend(CUBE_SUCCESS);
+			status=INIT_STATE;
+		}else{
+			status=ERROR_STATE;
+		};
+		break;
+  }
 }
+
+
+void sendErrorSignal(){
+    digitalWrite(12,HIGH);
+	unsigned long time = millis();
+	while(millis()-time<ERROR_DURATION){
+		Serial.print(ERROR, BYTE);
+	}
+  digitalWrite(12,LOW);
+}
+
+void SMClean(void){
+	currentLayer=0;
+}
+
+void nextLayer(void){
+	currentLayer++;
+}
+
+void SSend(byte opcode){
+	Serial.print(opcode, BYTE);
+}
+
+boolean getLayer(int layer){
+	unsigned long time = millis();
+	for(int i=0; i<numbytes; i++){
+		if (Serial.available()){
+			val = Serial.read();
+			doubleBuffer[layer][i]=val;
+			if(val==END_LAYER){
+				return false;
+			}
+		}
+		if(millis()-time>MAX_LAYER_WAIT){
+			return false;
+		}
+	}
+	return true;
+}
+
+
 
 boolean waitForOpcode(byte opcode){
   unsigned long time = millis();
     while(Serial.read()!=opcode){
       if(millis()-time>MAX_WAIT_MILLIS){
-          for(;;){Serial.print(ERROR, BYTE);}
           return false;
         }
     }
