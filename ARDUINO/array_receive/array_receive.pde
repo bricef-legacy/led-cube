@@ -1,5 +1,5 @@
 /**
- * Interrupt/draw loop alpha version
+ * FSM for the Arduino.
  * 
  * @date 27-March-2009
  * @author Brice Fernandes
