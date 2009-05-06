@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Brice/Documents/Processing/libraries/controlP5/library/controlP5.jar"/>
+	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/opengl/library/jogl.jar"/>
+	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/opengl/library/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/opengl/library/opengl.jar"/>
+	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/serial/library/serial.jar"/>
+	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/serial/library/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/lib/core.jar"/>
+	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/serial/library"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
