@@ -70,4 +70,55 @@ public class P5GUI {
 	   return gui; 
 	  }
 	  
+	  void controlEvent(ControlEvent theEvent) {
+  println(theEvent.controller().id());
+  switch(theEvent.controller().id()){
+   //Miller indices activated, takes input from boxes to produce correct planes
+   //Amazing plane code by Chris Ryan *g*
+   
+   case millerGo:
+   //reads valuues from text boxes, then sends them to miller draw method
+   ival = Integer.decode(cubeGUI.iBox.getText());
+   jval = Integer.decode(cubeGUI.jBox.getText());
+   kval = Integer.decode(cubeGUI.kBox.getText());
+   miller(mycube, 8, ival, jval, kval);
+   break; 
+   
+   case iGo:
+    model = new IsingModel(mycube, temperature);
+   model.run();
+  
+   break;
+   
+   case iSlid:
+   model.setTemp(temperature);
+  println("Temperature: " +temperature);
+   break;
+   
+  }
+  
+}
+
+void radio(int theID) {
+  switch(theID) {
+    
+    case(3):
+    smallFCC(mycube, 8);
+    break;
+    case(4):
+    largeFCC(mycube, 8);
+    break;
+    case(5):
+    smallBCC(mycube, 8);
+    break;
+    case(6):
+    largeBCC(mycube, 8);
+    break;
+    case(7):
+    largeSC(mycube, 8);
+    break;
+  }
+  
+}
+	  
 }
