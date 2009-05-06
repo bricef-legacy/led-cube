@@ -1,3 +1,4 @@
+package core;
 
 public class MagicCubeData implements CoreAPI{
 	private int[][][] cubeRep;

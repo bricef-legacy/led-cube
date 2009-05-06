@@ -1,3 +1,4 @@
+package core;
 
 public class InfoLogger {
 	public void log(String msg){

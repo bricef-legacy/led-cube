@@ -1,3 +1,9 @@
+package cubeUsers;
+import core.ColorCodes;
+import core.CoreAPI;
+import core.CubeUserInterface;
+import core.OpCodes;
+import core.Statistics;
 import processing.core.PApplet;
 import processing.serial.Serial;
 

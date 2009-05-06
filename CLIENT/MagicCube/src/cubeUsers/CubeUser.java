@@ -1,3 +1,8 @@
+package cubeUsers;
+
+import core.CoreAPI;
+import core.CubeUserInterface;
+
 
 public class CubeUser extends Thread implements CubeUserInterface {
 	CoreAPI cube;
@@ -29,5 +34,6 @@ public class CubeUser extends Thread implements CubeUserInterface {
 	public void killme() {
 		this.killme=true;
 	}
+
 
 }

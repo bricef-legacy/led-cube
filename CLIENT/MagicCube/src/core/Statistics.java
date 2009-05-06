@@ -1,3 +1,4 @@
+package core;
 
 public class Statistics {
 	long total;
@@ -6,11 +7,11 @@ public class Statistics {
 		this.total=0;
 		this.num=0;
 	}
-	void add(long toadd){
+	public void add(long toadd){
 		num++;
 		total+=toadd;
 	}
-	long average(){
+	public long average(){
 		return total/num;
 	}
 }
