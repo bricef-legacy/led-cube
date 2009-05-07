@@ -1,7 +1,7 @@
 package cubeUser;
 
+import utils.CoreAPI;
 import core.AbstractCubeUser;
-import core.CoreAPI;
 
 public class MillerUser extends AbstractCubeUser {
 	int i, j, k;
@@ -12,8 +12,9 @@ public class MillerUser extends AbstractCubeUser {
 	}
 
 	@Override
-	public void run() {
+	public void loop() {
 		miller(this.getCube(),this.getCube().getSize(), j, i, k);
+		killme();
 	}
 
 	/*

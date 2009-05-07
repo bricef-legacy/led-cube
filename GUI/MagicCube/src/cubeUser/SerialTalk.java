@@ -2,10 +2,10 @@ package cubeUser;
 
 import processing.core.PApplet;
 import processing.serial.Serial;
+import utils.ColorCodes;
+import utils.OpCodes;
+import utils.Statistics;
 import core.AbstractCubeUser;
-import core.ColorCodes;
-import core.OpCodes;
-import core.Statistics;
 
 
 public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
@@ -24,10 +24,8 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	
 		
 	@Override
-	public void run(){
-		while(!this.isKillme()){
+	public void loop(){
 				writeCube();
-		}
 	}
 
 	public byte[][] getByteStream(){ 

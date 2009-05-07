@@ -1,9 +1,21 @@
 package core;
 
+import utils.CoreAPI;
+
+/**
+ * The MagicCubeData class contains the virtual representation of the LED cube.
+ * Instances of this class are designed to be accessed by multiple threads simultaneously,
+ * so all methods are synchronized. 
+ *
+ */
 public class MagicCubeData implements CoreAPI{
 	private int[][][] cubeRep;
 	private int cubesize;
 	
+	/**
+	 * Constructor. Takes a cube size. Allows for greater sizes in the future.
+	 * @param cubesize
+	 */
 	public MagicCubeData(int cubesize){
 		this.cubeRep =new int[cubesize][cubesize][cubesize];
 		this.cubesize=cubesize;
@@ -12,10 +24,6 @@ public class MagicCubeData implements CoreAPI{
 
 	@Override
 	public synchronized void clearCube() {
-		
-		
-		
-		
 		for(int x=0; x<this.cubesize;x++){
 			for(int y=0; y<this.cubesize;y++){
 				for(int z=0; z<this.cubesize;z++){

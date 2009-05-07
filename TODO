@@ -3,32 +3,38 @@ TODO:
 
 Assigned
 --------
-(brice) remove debug markers and variables in ARDUINO/array_receive/array_receive.pde
-(brice) test serial code on NIX
-(Ed) process a bytestream onto the LED cube [Done Codeing, Needs testing on wed. (added to brices Prog)]
-(Sam) create a state array to bytestream converter
-(Mike) Create a processing class for a 3D Ising model
+(mike) bugfix Ising model.
+(chris) bugfix miller indices
+(brice) create logic for serial write toggle
+(brice) integrate image load/save logic with fileload dialog
+(All) Build cube
+(Mike) create audio analysis app
 
 
 Unassigned
 ----------
 maybe? Implement arbitrary sketch loading via gui to allow end user to write own display loop using api 
 Test gui and serial exec on MAC
-Modify gui to use the CLIENT sketches for communication with arduino
-	-> port selection using Serial.list() from processing.serial
-Modify gui to incorporate image load/save from file
+gui port selection using Serial.list() from processing.serial
 Cleanup API making sense of x,y,z when building cube state array
-Code review + cleanup
-Build cube
-create a wrapper class with toggles around simCube and realCube
-Test liveupdate speed vs simualtion speed. 
-create a gui element to toggle live update
 Write the readme
+integrate audio analysis app
+test driver integration
 
 DONE:
 =====
+(Mike) Create a processing class for a 3D Ising model
+(Sam) create a state array to bytestream converter
+(Ed) process a bytestream onto the LED cube [Done Codeing, Needs testing on wed. (added to brices Prog)]
+(brice) remove debug markers and variables in ARDUINO/array_receive/array_receive.pde
+(brice) test serial code on NIX
 (Ed) Use an image file to store the states.
 (Sam) finish Gui
-(Brice) implement a messeging protocol between Arduino and computer.
+(Brice) implement a messaging protocol between Arduino and computer.
 (Chris) create a visualisation toolkit 
-
+(brice) Modify gui to use the CLIENT sketches for communication with arduino [during full rewrite]
+(brice) Code review + cleanup
+(brice) Modify gui to incorporate image load/save from file
+(brice) create a wrapper class with toggles around simCube and realCube [during full rewrite]
+(brice) Test liveupdate speed vs simualtion speed. (5fps)
+(brice) create a gui element to toggle live update

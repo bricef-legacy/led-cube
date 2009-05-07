@@ -1,4 +1,6 @@
-package core;
+package utils;
+
+
 /**
  * Core LED Cube API.
  * @author Michael Overington 

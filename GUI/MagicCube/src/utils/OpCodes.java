@@ -1,4 +1,4 @@
-package core;
+package utils;
 
 public interface OpCodes {
 	/**

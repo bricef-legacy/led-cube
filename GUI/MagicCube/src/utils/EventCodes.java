@@ -1,3 +1,4 @@
+package utils;
 
 public interface EventCodes {
 	//The event refs

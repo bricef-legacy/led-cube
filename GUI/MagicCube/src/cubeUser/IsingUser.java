@@ -1,7 +1,7 @@
 package cubeUser;
 
+import utils.CoreAPI;
 import core.AbstractCubeUser;
-import core.CoreAPI;
 
 public class IsingUser extends AbstractCubeUser{
 	
@@ -173,16 +173,14 @@ public class IsingUser extends AbstractCubeUser{
 	}
 	
 	@Override
-	public void run(){
-		while(!isKillme()){
-			sys.choose();
+	public void loop(){
+		sys.choose();
+		sys.perturb();
+		//check if new config is retained
+		de=-2*sys.localenergy();
+		if ((de<=0)||((de>0)&&(Math.exp(-de/temp))>(Math.random()))){
 			sys.perturb();
-			//check if new config is retained
-			de=-2*sys.localenergy();
-			if ((de<=0)||((de>0)&&(Math.exp(-de/temp))>(Math.random()))){
-				sys.perturb();
-			}else{System.out.println("change");}
-			sys.drawParticle(this.getCube());
-		}
+		}else{System.out.println("change");}
+		sys.drawParticle(this.getCube());
 	}
 }

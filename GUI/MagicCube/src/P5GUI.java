@@ -1,15 +1,17 @@
-
-
+import utils.EventCodes;
 import controlP5.ControlP5;
 import controlP5.Controller;
 import controlP5.Radio;
-import controlP5.Tab;
 import controlP5.Textfield;
 import controlP5.Toggle;
 
+/**
+ * The main Gui for the project. Implements EventCode for convenience.
+ * Creates the gui elements. Serves as a wrapper around controlP5. Has
+ * a few ad-hoc methods to access text fields from outside.
+ * @author Brice
+ */
 public class P5GUI implements EventCodes{
-	//the calling applet
-	CubeSimulation parent;
 	
 	//The gui
 	ControlP5 gui;
@@ -24,9 +26,14 @@ public class P5GUI implements EventCodes{
 	
 	Controller demoToggle;
 	
+	/**
+	 * The Gui constructor. Creates the gui elements.
+	 * @param coreApplet The parent caller. Used only to initialise the ControlP5 object.
+	 * @param listener The event listener where all gui actions are specified.
+	 * @author Brice
+	 * @author Sam
+	 */
 	 public P5GUI(CubeSimulation coreApplet, EventListener listener){ 
-	  
-		 this.parent=coreApplet;
 		 
 		 //have to draw gui on something specific
 	  gui = new ControlP5(coreApplet);
@@ -120,18 +127,39 @@ public class P5GUI implements EventCodes{
 	  
 	  
 	 }
-	  void temperature(float t){
-		  System.out.println(t);
-	  }
-	  public ControlP5 getGUI(){
-		  return gui; 
-	  }
+	 
+	/**
+	 * The gui accessor is used by CubeSimulation to call the draw method of the undrlying ControlP5 class.
+	 * @return The controlP5 gui used to draw the gui.
+	 * @author Brice
+	 */
+	public ControlP5 getGUI(){
+		return gui; 
+	}
+	/**
+	 * Textfield accessor used by the eventListener.
+	 * @return the controlP5.TextField used for displaying miller planes
+	 * @see EventListener
+	 * @author Brice
+	 */
 	public Textfield getIBox() {
 		return iBox;
 	}
+	/**
+	 * Textfield accessor used by the eventListener.
+	 * @return the controlP5.TextField used for displaying miller planes
+	 * @see EventListener
+	 * @author Brice
+	 */
 	public Textfield getJBox() {
 		return jBox;
 	}
+	/**
+	 * Textfield accessor used by the eventListener.
+	 * @return the controlP5.TextField used for displaying miller planes
+	 * @see EventListener
+	 * @author Brice
+	 */
 	public Textfield getKBox() {
 		return kBox;
 	}
