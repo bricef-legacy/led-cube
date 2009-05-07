@@ -3,6 +3,7 @@
 import controlP5.ControlP5;
 import controlP5.Controller;
 import controlP5.Radio;
+import controlP5.Tab;
 import controlP5.Textfield;
 import controlP5.Toggle;
 
@@ -20,7 +21,9 @@ public class P5GUI implements EventCodes{
 	//Ising controller
 	Controller isingGo;
 	Controller isingSlider;
-	 
+	
+	Controller demoToggle;
+	
 	 public P5GUI(CubeSimulation coreApplet, EventListener listener){ 
 	  
 		 this.parent=coreApplet;
@@ -35,6 +38,12 @@ public class P5GUI implements EventCodes{
 	  gui.tab("Options");
 	  
 	  /*---Default gui----*/
+	  demoToggle=gui.addButton("Run Demo", 10, 50, 250, 50, 20);
+	  demoToggle.setId(DEMO_TOGGLE);
+	  demoToggle.addListener(listener);
+	  demoToggle.setTab("default");
+	  
+	  
 	  String welcomeText="3D Cube Simulator \n";
 	  welcomeText+="=============================\n";
 	  welcomeText+="The University of Sheffield.\n";
@@ -53,7 +62,8 @@ public class P5GUI implements EventCodes{
 	  welcomeText+="\n";
 	  welcomeText+="See http://ledcube.googlecode.com for the latest info and releases.\n";
 	  welcomeText+="\n";
-	  gui.addTextarea("Welcome", welcomeText, 10, 40, 170, 300);
+	  gui.addTextarea("Welcome", welcomeText, 10, 40, 170, 300).setTab("default");	  
+	  
 	  
 	  /*----Utils contoller----*/
 	  Controller utils;
@@ -103,7 +113,7 @@ public class P5GUI implements EventCodes{
 	 iBox.addListener(listener);
 	 jBox.addListener(listener);
 	 kBox.addListener(listener);
-	 millGo = gui.addButton("Draw Miller Indices", 10, 10, 160, 100, 20);
+	 millGo = gui.addButton("Draw Miller Planes", 10, 10, 160, 100, 20);
 	 millGo.setId(MILLER_START_ID);
 	 millGo.addListener(listener);
 	 millGo.setTab("Miller Planes");
@@ -116,4 +126,13 @@ public class P5GUI implements EventCodes{
 	  public ControlP5 getGUI(){
 		  return gui; 
 	  }
+	public Textfield getIBox() {
+		return iBox;
+	}
+	public Textfield getJBox() {
+		return jBox;
+	}
+	public Textfield getKBox() {
+		return kBox;
+	}
 }

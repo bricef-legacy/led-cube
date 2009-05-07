@@ -5,6 +5,8 @@ public interface EventCodes {
 	final static int ISING_START_ID =50;
 	final static int ISING_SLIDER_ID=51;
 	final static int UTILS_START_ID=60;
+	final static int HOME_TAB_EVENT = 70;
+	final static int DEMO_TOGGLE=80;
 	
 	//radio refs
 	final static int CRYSTAL_SC = 1;

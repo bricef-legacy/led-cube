@@ -4,11 +4,11 @@ import javax.media.opengl.GL;
 
 import processing.core.PApplet;
 import core.CoreAPI;
-import core.CubeUserInterface;
 import core.MagicCubeData;
 import core.UserManager;
 import cubeUser.CubeUser;
 import cubeUser.IsingUser;
+import cubeUser.MillerUser;
 import cubeUser.SerialTalk;
 
 
@@ -56,21 +56,24 @@ public class CubeSimulation extends PApplet{
 		//The following must occur in this order:
 		this.theCube=new MagicCubeData(8);
 		this.manager=new UserManager(this.theCube);
-		this.listener=new EventListener(manager, this.theCube);
+		this.listener=new EventListener(this, manager);
 		this.P5Gui =new P5GUI(this, listener);
 		
 		
 		this.manager.adduser(new CubeUser(), "Random");
 		this.manager.adduser(new SerialTalk(this, "COM3"), "Serial");
 		this.manager.adduser(new IsingUser(), "Ising");
+		this.manager.adduser(new MillerUser(1,1,0), "Miller");
 		
-		this.manager.toggleToUser("Ising");
+		this.manager.toggleToUser("Random");
 		
 		this.manager.setTalker("Serial");
 		this.manager.startTalker();
 		
 		}
-
+	public P5GUI getGui(){
+		return this.P5Gui;
+	}
 	public UserManager getManager(){
 		return this.manager;
 	}

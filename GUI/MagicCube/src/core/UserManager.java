@@ -11,6 +11,7 @@ public class UserManager{
 	AbstractCubeUser currentUser;
 	AbstractCubeUser talker;
 	String talkerName;
+	String currentUserName;
 	
 	public UserManager(CoreAPI cube){
 		this.cube=cube;
@@ -41,6 +42,7 @@ public class UserManager{
 			System.out.println("[MANAGER]: There is no Current User. Starting new Current user.");
 			currentUser=users.get(name);
 			currentUser.setCube(cube);
+			currentUserName=name;
 			currentUser.start();
 		}else{//if the current thread is the thread toggled to
 			System.out.println("[MANAGER]: Selected user already Current user. Doing nothing.");
@@ -69,6 +71,9 @@ public class UserManager{
 	}
 	public CubeUserInterface getCurrentUser(){
 		return currentUser;
+	}
+	public String getCurrentuserName(){
+		return this.currentUserName;
 	}
 	
 	@Override

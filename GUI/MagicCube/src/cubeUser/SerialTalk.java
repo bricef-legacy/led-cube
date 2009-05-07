@@ -15,7 +15,6 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	PApplet parentapp;
 	int val;        // Data received from the serial port
 	int returned=0;
-	int del=0;
 	byte[][] doubleBuffer;
 	Statistics stats=new Statistics();
 	
@@ -27,7 +26,7 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	@Override
 	public void run(){
 		while(!this.isKillme()){
-			 writeCube();
+				writeCube();
 		}
 	}
 
@@ -190,13 +189,21 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 		  }
 		  
 		  public void SSend(int toSend){
-		    myPort.write(toSend);
-		    //println(myPort.read());
-		      try {
-				Thread.sleep(del);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		  }
-
+				try{
+					if(myPort.available()==1){
+						myPort.write(toSend);
+					}else{
+						throw new Exception("port not available");
+					}
+				}catch(Exception e2){
+					System.out.println("[SERIAL]: Exception caught. (Arduino not plugged in?). Aborting Serial write attempt. Commiting suicide.");
+					this.killme();
+					try {
+						join();
+					} catch (InterruptedException e3) {
+						System.out.println("[SERIAL]: Thread interrupted while trying to commit suicide.");
+						System.exit(1);
+					}
+				}
+		 }
 }
