@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="cubeUsers/" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/controlP5.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/core.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/gluegen-rt-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/gluegen-rt-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/gluegen-rt-natives-macosx-ppc.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/gluegen-rt-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/jogl.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/jogl-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/jogl-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/jogl-natives-macosx-ppc.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/jogl-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/jogl-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/jogl-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/opengl.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="D:/FILES/PHY343/repo/GUI/MagicCube/libs/serial.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,45 +1,31 @@
 
 
-import controlP5.ControlEvent;
 import controlP5.ControlP5;
 import controlP5.Controller;
 import controlP5.Radio;
 import controlP5.Textfield;
 import controlP5.Toggle;
 
-public class P5GUI {
+public class P5GUI implements EventCodes{
+	//the calling applet
+	CubeSimulation parent;
+	
 	//The gui
 	ControlP5 gui;
 	
 	//the miller indices controller and fields
 	Controller millGo;
 	Textfield iBox, jBox, kBox;
-	int ival, jval, kval;
 	
 	//Ising controller
 	Controller isingGo;
 	Controller isingSlider;
-	
-	
-	
-	//The event refs
-	final static int MILLER_START_ID=100;
-	final static int ISING_START_ID =50;
-	final static int ISING_SLIDER_ID=51;
-	final static int UTILS_START_ID=60;
-	
-	//radio refs
-	final static int CRYSTAL_SC = 1;
-	final static int CRYSTAL_FCC = 2;
-	final static int CRYSTAL_FCC_XL = 3;
-	final static int CRYSTAL_BCC = 4;
-	final static int CRYSTAL_BCC_XL = 5;
-	
-	//options refs
-	final static int WRITE_SERIAL = 11;
 	 
-	 public P5GUI(CubeSimulation coreApplet){ 
-	  //have to draw gui on something specific
+	 public P5GUI(CubeSimulation coreApplet, EventListener listener){ 
+	  
+		 this.parent=coreApplet;
+		 
+		 //have to draw gui on something specific
 	  gui = new ControlP5(coreApplet);
 	  gui.tab("default").setLabel("Home");
 	  gui.tab("Crystal");
@@ -96,81 +82,38 @@ public class P5GUI {
 	 /*----Ising model Gui elements----*/
 	 isingGo = gui.addButton("Start Ising Simulation",10, 10, 40, 102, 20);
 	 isingGo.setId(ISING_START_ID);
+	 isingGo.addListener(listener);
 	 isingGo.setTab("Ising Model"); 
-	 
-	 isingSlider= gui.addSlider("Temperature", 0, 50, 0, 10, 70, 10, 400);//addSlider(theName, theMin, theMax, theDefaultValue, theX, theY, theW, theH);
+	 isingSlider= gui.addSlider("temperature", 0, 50, 0, 10, 70, 10, 350);//addSlider(theName, theMin, theMax, theDefaultValue, theX, theY, theW, theH);
 	 isingSlider.setId(ISING_SLIDER_ID);
+	 isingSlider.setLabel("Temperature");
+	 isingSlider.addListener(listener);
 	 isingSlider.setTab("Ising Model");
 	 
-	 
 	 /*----Miller indices Gui elements----*/
-	 
-	 ival=0;
-	 jval=0;
-	 kval=0; 
 	 iBox = gui.addTextfield("i", 10, 40, 100, 20);
 	 jBox = gui.addTextfield("j", 10, 80, 100, 20);
 	 kBox = gui.addTextfield("k", 10, 120, 100, 20);
+	 iBox.setId(IBOX_ID);
+	 jBox.setId(JBOX_ID);
+	 kBox.setId(KBOX_ID);
 	 iBox.setTab("Miller Planes");
 	 jBox.setTab("Miller Planes");
 	 kBox.setTab("Miller Planes");
+	 iBox.addListener(listener);
+	 jBox.addListener(listener);
+	 kBox.addListener(listener);
 	 millGo = gui.addButton("Draw Miller Indices", 10, 10, 160, 100, 20);
 	 millGo.setId(MILLER_START_ID);
+	 millGo.addListener(listener);
 	 millGo.setTab("Miller Planes");
 	  
 	  
 	 }
-	  
+	  void temperature(float t){
+		  System.out.println(t);
+	  }
 	  public ControlP5 getGUI(){
-	   return gui; 
+		  return gui; 
 	  }
-	  
-	  void controlEvent(ControlEvent Event){
-		  System.out.println("event from controller id: "+Event.controller().id());
-		  switch(Event.controller().id()){
-			  //Miller indices activated, takes input from boxes to produce correct planes
-			  //Amazing plane code by Chris Ryan *g*
-	
-			  case MILLER_START_ID:
-				  //reads valuues from text boxes, then sends them to miller draw method
-				  ival = Integer.decode(this.iBox.getText());
-				  jval = Integer.decode(this.jBox.getText());
-				  kval = Integer.decode(this.kBox.getText());
-				  //start miller thread with i,j,k
-				  //miller(mycube, 8, ival, jval, kval);
-				  break; 
-	
-			  case ISING_START_ID:
-				  //model = new IsingModel(mycube, temperature);
-				  //model.run();
-				  break;
-	
-			  case ISING_SLIDER_ID:
-				  //model.setTemp(temperature);
-				  //println("Temperature: " +temperature);
-				  break;
-		  }
-	  }
-
-void radio(int theID) {
-  switch(theID) {
-    case(CRYSTAL_SC):
-	    //TODO
-	    break;
-    case(CRYSTAL_FCC):
-	    //TODO
-	    break;
-    case(CRYSTAL_FCC_XL):
-	    //TODO
-	    break;
-    case(CRYSTAL_BCC):
-	    //TODO
-	    break;
-    case(CRYSTAL_BCC_XL):
-	    //TODO
-	    break;
-  }
-  
-}
-	  
 }

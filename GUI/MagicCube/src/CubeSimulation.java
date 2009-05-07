@@ -1,22 +1,23 @@
 
 
-import processing.opengl.*;
-import javax.media.opengl.*;
+import javax.media.opengl.GL;
+
+import processing.core.PApplet;
 import core.CoreAPI;
 import core.CubeUserInterface;
 import core.MagicCubeData;
-import core.NoSuchUserException;
 import core.UserManager;
-import processing.core.PApplet;
-import cubeUsers.CubeUser;
-import cubeUsers.SerialTalk;
+import cubeUser.CubeUser;
+import cubeUser.IsingUser;
+import cubeUser.SerialTalk;
 
 
-public class CubeSimulation extends PApplet implements CubeUserInterface{
+
+public class CubeSimulation extends PApplet{
 	private static final long serialVersionUID = 1L;
 	boolean killme;
 	private CoreAPI theCube;
-	P5GUI P5Controller;
+	P5GUI P5Gui;
 	//Drawing Parameters
 	final static int CUBESIZE = 8; //size of cube
 	final static float LEDSPACE = 40; //led spacing
@@ -30,7 +31,8 @@ public class CubeSimulation extends PApplet implements CubeUserInterface{
 	private float mousespeed = 0.02f; //the mouse movement
 	UserManager manager;
 	GL gl;        //OpenGL class (used to assist rendering)
-	final static String FONT_LOCATION="D:/FILES/PHY343/repo/CLIENT/MagicCube/src/CourierNew36.vlw";
+	final static String FONT_LOCATION="D:/FILES/PHY343/repo/GUI/MagicCube/src/CourierNew36.vlw";
+	EventListener listener;
 	
 	static public void main(String args[]) {
 		   PApplet.main(new String[] { "CubeSimulation" });
@@ -50,17 +52,29 @@ public class CubeSimulation extends PApplet implements CubeUserInterface{
 		textFont(loadFont(FONT_LOCATION)); 
 	    
 		this.cubestates = new int[CUBESIZE][CUBESIZE][CUBESIZE];
+		
+		//The following must occur in this order:
 		this.theCube=new MagicCubeData(8);
-		this.P5Controller =new P5GUI(this);
 		this.manager=new UserManager(this.theCube);
+		this.listener=new EventListener(manager, this.theCube);
+		this.P5Gui =new P5GUI(this, listener);
+		
+		
 		this.manager.adduser(new CubeUser(), "Random");
 		this.manager.adduser(new SerialTalk(this, "COM3"), "Serial");
+		this.manager.adduser(new IsingUser(), "Ising");
 		
-		this.manager.toggleToUser("Random");
-		this.manager.startParallelUser("Serial");
+		this.manager.toggleToUser("Ising");
+		
+		this.manager.setTalker("Serial");
+		this.manager.startTalker();
 		
 		}
-	  
+
+	public UserManager getManager(){
+		return this.manager;
+	}
+	
 	public void draw() {
 		background(0);
 		noStroke();
@@ -84,7 +98,7 @@ public class CubeSimulation extends PApplet implements CubeUserInterface{
 			drawcube();
 		popMatrix();
 		
-		P5Controller.getGUI().draw();
+		P5Gui.getGUI().draw();
 	}
 	private void drawcube(){
 		//System.out.println("frame rate:"+this.frameRate);
@@ -114,17 +128,7 @@ public class CubeSimulation extends PApplet implements CubeUserInterface{
 		}
 		popMatrix();
 	}
-
-	@Override
-	public void setCube(CoreAPI mcube) {
-		this.theCube=mcube;
-	}
-
-	@Override
-	public void killme() {
-		this.killme=true;
-	}
-	
+		
 	public void mouseDragged() {
 		  if (pmouseX < mouseX) a+=mousespeed; 
 		  else if (pmouseX > mouseX) a-=mousespeed;

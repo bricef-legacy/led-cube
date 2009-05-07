@@ -1,16 +1,14 @@
-package cubeUsers;
-import core.ColorCodes;
-import core.CoreAPI;
-import core.CubeUserInterface;
-import core.OpCodes;
-import core.Statistics;
+package cubeUser;
+
 import processing.core.PApplet;
 import processing.serial.Serial;
+import core.AbstractCubeUser;
+import core.ColorCodes;
+import core.OpCodes;
+import core.Statistics;
 
 
-public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, ColorCodes{
-	CoreAPI cube;
-	boolean killme=false;
+public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	public static final long MAX_WAIT_MILLIS = 1000;
 	int comport;
 	Serial myPort;  // Create object from Serial class
@@ -25,14 +23,10 @@ public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, Co
 		myPort = new Serial(parentapp, portName, 115200);//must match the baud rate on the arduino.
 	}
 	
-	@Override
-	public void setCube(CoreAPI mcube) {
-		this.cube=mcube;
-	}
-	
+		
 	@Override
 	public void run(){
-		while(!this.killme){
+		while(!this.isKillme()){
 			 writeCube();
 		}
 	}
@@ -49,7 +43,7 @@ public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, Co
 	     */
 	    
 	    byte[][] stream = new byte[8][32];
-	    int[][][] mycube=this.cube.readCube();
+	    int[][][] mycube=this.getCube().readCube();
 	    byte temp;
 	    
 	    //lets loop through z
@@ -106,17 +100,16 @@ public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, Co
 	
 	public void writeCube(){
 		long before=System.currentTimeMillis();
-		System.out.print("Checking for readiness: ");
+		System.out.println("[SERIAL]: Checking for readiness: ");
 	      while(returned!=INIT_OK){
-	    	  System.out.print(".");
-	        SSend(INIT_IS_READY);
+	    	  SSend(INIT_IS_READY);
 	        returned=myPort.read();
 	        //System.out.println(returned);
 	      }
 	      returned = 0;
-	      System.out.println("Arduino listening.");
+	      System.out.println("[SERIAL]: Arduino listening.");
 		try{
-	  System.out.println("Begining cube transmission.");
+	  System.out.println("[SERIAL]: Begining cube transmission.");
 	  doubleBuffer=this.getByteStream();
 	   
 	         
@@ -151,7 +144,7 @@ public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, Co
 	          long after = System.currentTimeMillis();
 	          long foo=after-before;
 	          stats.add(foo);
-	          System.out.printf("Cube sent successfully in: %dms (%dms avg)\n\n", foo, stats.average());
+	          System.out.printf("[SERIAL]: Cube sent successfully in: %dms (%dms avg)\n\n", foo, stats.average());
 	        };
 	        
 	   }catch(Exception e){
@@ -165,7 +158,7 @@ public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, Co
 		    int opcode = myPort.read();
 		      while(opcode!=CUBE_SUCCESS){
 		        if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
-		           throw new Exception("the arduino board does not seem to be responding (NO CUBE ACK)");
+		           throw new Exception("[SERIAL]: the arduino board does not seem to be responding (NO CUBE ACK)");
 		          }
 		          opcode=myPort.read();
 		      }
@@ -181,7 +174,7 @@ public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, Co
 		    //println(opcode);
 		      while(!acked){
 		        if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
-		           throw new Exception("The arduino board does not seem to be responding (NO LAYER ACK)");
+		           throw new Exception("[SERIAL]: The arduino board does not seem to be responding (NO LAYER ACK)");
 		          }
 		        if(opcode==LAYER_ACK_SUCCESS){
 		            acked=true;
@@ -206,9 +199,4 @@ public class SerialTalk extends Thread implements CubeUserInterface, OpCodes, Co
 			}
 		  }
 
-		@Override
-		public void killme() {
-			this.killme=true;
-			
-		}
-		}
+}
