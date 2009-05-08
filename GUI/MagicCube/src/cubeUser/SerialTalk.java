@@ -27,17 +27,17 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	public void loop(){
 				writeCube();
 	}
-
+	
+	/**
+	 * Converting the data stored in the computer to draw the cube, to a ByteStream which can be written onto the cube.
+	 * Takes care of the hardware splicing between colours and halves, as well as conversion into the appropriate byte format.
+	 * Lowest level method in entire project. depends completely on hardware used, and would have to be rewritten for the smallest
+	 * hardware change.
+	 * @author Sam
+	 * @author Ed
+	 * @return A two dimensional byte array ready to be send as-is to the serial port. 
+	 */
 	public byte[][] getByteStream(){ 
-	    
-	    /*
-	     * @Authors: Samuel Dove, Edward Overton.
-	     * Initial Work done by Sam.
-	     * tweaked and incoperated into LEDCUBE class done by Edward.
-	     *
-	     *  @About: Trying to solve byte array problem.
-	     *          Converting the data stored in the computer to draw the cube, to a ByteStream which can be written onto the cube
-	     */
 	    
 	    byte[][] stream = new byte[8][32];
 	    int[][][] mycube=this.getCube().readCube();
@@ -94,7 +94,11 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	    return stream;
 	  }
 		  
-	
+	/**
+	 * general writeCube method.<p>
+	 * AWAITING REWRITE AS STATE MACHINE
+	 * @author Brice
+	 */
 	public void writeCube(){
 		long before=System.currentTimeMillis();
 		System.out.println("[SERIAL]: Checking for readiness: ");
@@ -150,58 +154,60 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	   } 
 	   
 	  }
-		  public boolean waitForCubeACK()  throws Exception{
-		    long time = System.currentTimeMillis();
-		    int opcode = myPort.read();
-		      while(opcode!=CUBE_SUCCESS){
-		        if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
-		           throw new Exception("[SERIAL]: the arduino board does not seem to be responding (NO CUBE ACK)");
-		          }
-		          opcode=myPort.read();
-		      }
-		      return true;
-		  }
+  
+	public boolean waitForCubeACK()  throws Exception{
+	long time = System.currentTimeMillis();
+		int opcode = myPort.read();
+		while(opcode!=CUBE_SUCCESS){
+		    if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
+		    	throw new Exception("[SERIAL]: the arduino board does not seem to be responding (NO CUBE ACK)");
+		    }
+		     opcode=myPort.read();
+	    }
+	      return true;
+	  }
 		  
 		  
-		  public boolean waitForLayerACK()  throws Exception{
-		    long time = System.currentTimeMillis();
-		    boolean success=false;
-		    boolean acked=false;
-		    int opcode = myPort.read();
-		    //println(opcode);
-		      while(!acked){
-		        if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
-		           throw new Exception("[SERIAL]: The arduino board does not seem to be responding (NO LAYER ACK)");
-		          }
-		        if(opcode==LAYER_ACK_SUCCESS){
-		            acked=true;
-		            success= true;
-		        }else if(opcode==LAYER_ACK_FAIL){
-		            acked=true;
-		            success= false;
-		            System.out.println("LAYER_ACK_FAIL");
-		        };
-		        opcode=myPort.read();
-		      }
-		      return success;
-		  }
+	public boolean waitForLayerACK()  throws Exception{
+		long time = System.currentTimeMillis();
+		boolean success=false;
+		boolean acked=false;
+		int opcode = myPort.read();
+		//println(opcode);
+		while(!acked){
+			if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
+				throw new Exception("[SERIAL]: The arduino board does not seem to be responding (NO LAYER ACK)");
+			}
+			if(opcode==LAYER_ACK_SUCCESS){
+				acked=true;
+				success= true;
+			}else if(opcode==LAYER_ACK_FAIL){
+				acked=true;
+				success= false;
+				System.out.println("LAYER_ACK_FAIL");
+			};
+			opcode=myPort.read();
+		}
+		return success;
+	}
 		  
-		  public void SSend(int toSend){
-				try{
-					if(myPort.available()==1){
-						myPort.write(toSend);
-					}else{
-						throw new Exception("port not available");
-					}
-				}catch(Exception e2){
-					System.out.println("[SERIAL]: Exception caught. (Arduino not plugged in?). Aborting Serial write attempt. Commiting suicide.");
-					this.killme();
-					try {
-						join();
-					} catch (InterruptedException e3) {
-						System.out.println("[SERIAL]: Thread interrupted while trying to commit suicide.");
-						System.exit(1);
-					}
-				}
-		 }
+
+	public void SSend(int toSend){
+		try{
+			if(myPort.available()==1){
+				myPort.write(toSend);
+			}else{
+				throw new Exception("port not available");
+			}
+		}catch(Exception e2){
+			System.out.println("[SERIAL]: Exception caught. (Arduino not plugged in?). Aborting Serial write attempt. Commiting suicide.");
+			this.killme();
+			try{
+				join();
+			}catch (InterruptedException e3) {
+				System.out.println("[SERIAL]: Thread interrupted while trying to commit suicide.");
+				System.exit(1);
+			}
+		}
+	}
 }
