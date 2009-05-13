@@ -6,6 +6,7 @@ import core.UserManager;
 import cubeUser.CubeUser;
 import cubeUser.IsingUser;
 import cubeUser.MillerUser;
+import cubeUser.CrystalUser;
 
 /**
  * This event listener handles all events thrown by the gui. an inner switch statement decides on the 
@@ -86,6 +87,31 @@ public class EventListener implements ControlListener, EventCodes {
 				break;
 			case ISING_START_ID:
 				manager.toggleToUser("Ising");
+				break;
+				
+			case CRYSTAL_SC:
+				manager.toggleToUser("Crystal");
+				((CrystalUser)manager.getCurrentUser()).setState(CRYSTAL_SC);
+				break;
+				
+			case CRYSTAL_FCC:
+				manager.toggleToUser("Crystal");
+				((CrystalUser)manager.getCurrentUser()).setState(CRYSTAL_FCC);
+				break;
+				
+			case CRYSTAL_FCC_XL:
+				manager.toggleToUser("Crystal");
+				((CrystalUser)manager.getCurrentUser()).setState(CRYSTAL_FCC_XL);
+				break;
+				
+			case CRYSTAL_BCC:
+				manager.toggleToUser("Crystal");
+				((CrystalUser)manager.getCurrentUser()).setState(CRYSTAL_BCC);
+				break;
+				
+			case CRYSTAL_BCC_XL:
+				manager.toggleToUser("Crystal");
+				((CrystalUser)manager.getCurrentUser()).setState(CRYSTAL_BCC_XL);
 				break;
 		}
 		

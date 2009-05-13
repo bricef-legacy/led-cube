@@ -1,7 +1,7 @@
 import utils.EventCodes;
 import controlP5.ControlP5;
 import controlP5.Controller;
-import controlP5.Radio;
+
 import controlP5.Textfield;
 import controlP5.Toggle;
 
@@ -23,6 +23,14 @@ public class P5GUI implements EventCodes{
 	//Ising controller
 	Controller isingGo;
 	Controller isingSlider;
+	Controller rad;
+	
+	//crystal stuff
+	Controller sc;
+	Controller sFcc;
+	Controller lFcc;
+	Controller sBcc;
+	Controller lBcc;
 	
 	Controller demoToggle;
 	
@@ -63,7 +71,7 @@ public class P5GUI implements EventCodes{
 	  welcomeText+="    Tomas Loussert\n";
 	  welcomeText+="    Michael Overington\n";
 	  welcomeText+="    Edward Overton\n";
-	  welcomeText+="    Chris Ryan\n";
+	  welcomeText+="    Christopher Ryan\n";
 	  welcomeText+="\n";
 	  welcomeText+="Supervisor: Dr Martin Grell\n";
 	  welcomeText+="\n";
@@ -86,14 +94,27 @@ public class P5GUI implements EventCodes{
 	  
 	  
 	  /*----Crystal sturcture gui elements----*/
-	  Radio r = gui.addRadio("radio",10,40);
-	  r.addItem("Large SC", CRYSTAL_SC);
-	  r.addItem("Small FCC",CRYSTAL_FCC);
-	  r.addItem("Large FCC",CRYSTAL_FCC_XL);
-	  r.addItem("Small BCC",CRYSTAL_BCC);
-	  r.addItem("Large BCC",CRYSTAL_BCC_XL);
-	  r.setTab("Crystal");
-	  
+	  sc = gui.addButton("Simple Cubic",10, 10, 40, 102, 20);
+		 sc.setId(CRYSTAL_SC);
+		 sc.addListener(listener);
+		 sc.setTab("Crystal");
+	  lFcc = gui.addButton("Large FCC",10, 10, 70, 102, 20);
+		 lFcc.setId(CRYSTAL_FCC_XL);
+		 lFcc.addListener(listener);
+		 lFcc.setTab("Crystal");
+	sFcc = gui.addButton("Small FCC",10, 10, 100, 102, 20);
+		 sFcc.setId(CRYSTAL_FCC);
+		 sFcc.addListener(listener);
+		 sFcc.setTab("Crystal");
+	lBcc = gui.addButton("Large BCC",10, 10, 130, 102, 20);
+		 lBcc.setId(CRYSTAL_BCC_XL);
+		 lBcc.addListener(listener);
+		 lBcc.setTab("Crystal");
+	sBcc = gui.addButton("Small BCC",10, 10, 160, 102, 20);
+		 sBcc.setId(CRYSTAL_BCC);
+		 sBcc.addListener(listener);
+		 sBcc.setTab("Crystal");
+		 
 	  
 	  
 	 /*----Ising model Gui elements----*/

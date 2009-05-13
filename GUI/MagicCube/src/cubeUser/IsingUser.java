@@ -176,11 +176,12 @@ public class IsingUser extends AbstractCubeUser{
 	public void loop(){
 		sys.choose();
 		sys.perturb();
-		//check if new config is retained
-		de=-2*sys.localenergy();
-		if ((de<=0)||((de>0)&&(Math.exp(-de/temp))>(Math.random()))){
+		if(sys.localenergy()>0){
+			de=-2*sys.localenergy();
+		if ((Math.exp(de/temp))<=(Math.random())){
 			sys.perturb();
 		}else{System.out.println("change");}
 		sys.drawParticle(this.getCube());
+	}
 	}
 }

@@ -10,6 +10,7 @@ import cubeUser.CubeUser;
 import cubeUser.IsingUser;
 import cubeUser.MillerUser;
 import cubeUser.SerialTalk;
+import cubeUser.CrystalUser;
 
 
 /**
@@ -42,7 +43,7 @@ public class CubeSimulation extends PApplet{
 	GL gl;        //OpenGL class (used to assist rendering)
 	
 	//TODO change this from hard-coded to relative
-	final static String FONT_LOCATION="D:/FILES/PHY343/repo/GUI/MagicCube/src/CourierNew36.vlw";
+	final static String FONT_LOCATION="src/CourierNew36.vlw";
 	EventListener listener;
 	
 	/**
@@ -101,6 +102,7 @@ public class CubeSimulation extends PApplet{
 		this.manager.adduser(new SerialTalk(this, "COM3"), "Serial");
 		this.manager.adduser(new IsingUser(), "Ising");
 		this.manager.adduser(new MillerUser(1,1,0), "Miller");
+		this.manager.adduser(new CrystalUser(), "Crystal");
 		
 		this.manager.toggleToUser("Random");
 		

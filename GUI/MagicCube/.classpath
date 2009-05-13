@@ -2,13 +2,24 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Brice/Documents/Processing/libraries/controlP5/library/controlP5.jar"/>
-	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/opengl/library/jogl.jar"/>
-	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/opengl/library/gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/opengl/library/opengl.jar"/>
-	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/serial/library/serial.jar"/>
-	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/serial/library/RXTXcomm.jar"/>
-	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/lib/core.jar"/>
-	<classpathentry kind="lib" path="F:/Processing/processing-1.0.3/libraries/serial/library"/>
+	<classpathentry kind="lib" path="libs/controlP5.jar"/>
+	<classpathentry kind="lib" path="libs/core.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-natives-macosx-ppc.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="libs/jogl-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="libs/jogl-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="libs/jogl-natives-macosx-ppc.jar"/>
+	<classpathentry kind="lib" path="libs/jogl-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="libs/jogl-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="libs/jogl-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="libs/jogl.jar"/>
+	<classpathentry kind="lib" path="libs/opengl.jar"/>
+	<classpathentry kind="lib" path="libs/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="libs/serial.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
