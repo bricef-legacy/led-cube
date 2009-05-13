@@ -19,7 +19,8 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	Statistics stats=new Statistics();
 	
 	public SerialTalk(PApplet parentapp, String portName){
-		myPort = new Serial(parentapp, portName, 115200);//must match the baud rate on the arduino.
+		System.out.println(Serial.list()[0]);
+		myPort = new Serial(parentapp, portName, 9600);//must match the baud rate on the arduino.
 	}
 	
 		
@@ -91,6 +92,19 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	        stream[z][24+7-x] = temp;
 	      }
 	    }
+	    
+	    /*
+	    for (int i=0; i<8; i++){
+	        System.out.print ("Current Layer: ");
+	        System.out.println (i);
+	        for (int j=0; j<32; j++){
+	        	System.out.print(j);
+	        	System.out.print(": ");
+	        	System.out.println (processing.core.PApplet.binary(stream[i][j],8));
+	        }
+	      }
+	    */
+	    
 	    return stream;
 	  }
 		  
@@ -131,7 +145,10 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	          //System.out.printf("Transmitting layer %d\n",j);
 	          
 	          SSend(BEGIN_LAYER);
-	          myPort.write(doubleBuffer[j]);
+	          //myPort.write(doubleBuffer[j]);
+	          for (int i=0; i<32; i++){
+	        	  SSend(doubleBuffer[j][i]);
+	          }
 	          SSend(END_LAYER);
 	          
 	   	   
@@ -140,8 +157,8 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	        	  };
 	        }
 	        SSend(END_CUBE);
-	        
-	        if(waitForCubeACK()){
+	            
+		      if(waitForCubeACK()){
 	          long after = System.currentTimeMillis();
 	          long foo=after-before;
 	          stats.add(foo);
@@ -193,14 +210,16 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 		  
 
 	public void SSend(int toSend){
-		try{
-			if(myPort.available()==1){
+		System.out.println(processing.core.PApplet.binary(toSend,8));
+		try{ //TODO Fix ifs...
+			//if(myPort.available()==1){
 				myPort.write(toSend);
-			}else{
-				throw new Exception("port not available");
-			}
+			//}else{
+				//throw new Exception("port not available");
+			//}
 		}catch(Exception e2){
 			System.out.println("[SERIAL]: Exception caught. (Arduino not plugged in?). Aborting Serial write attempt. Commiting suicide.");
+			e2.printStackTrace();
 			this.killme();
 			try{
 				join();
