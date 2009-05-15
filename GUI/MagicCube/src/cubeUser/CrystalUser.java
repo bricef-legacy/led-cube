@@ -21,6 +21,7 @@ public class CrystalUser extends AbstractCubeUser implements EventCodes{
 
 	public void setState(int s){
 		currentState = s;
+		loop();
 	}
 	
 	
@@ -50,7 +51,8 @@ public class CrystalUser extends AbstractCubeUser implements EventCodes{
 			largeBCC(this.getCube());
 			break;
 		}
-		}
+		this.killme();
+	}
 	
 	void simpleCubic(CoreAPI c){
 		c.clearCube();
