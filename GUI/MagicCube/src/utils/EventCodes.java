@@ -16,6 +16,7 @@ public interface EventCodes {
 	final static int CRYSTAL_FCC_XL = 3;
 	final static int CRYSTAL_BCC = 4;
 	final static int CRYSTAL_BCC_XL = 5;
+	final static int CRYSTAL_BARIUM = 6;
 	
 	//options refs
 	final static int WRITE_SERIAL = 10;

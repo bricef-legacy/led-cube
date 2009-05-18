@@ -113,6 +113,9 @@ public class EventListener implements ControlListener, EventCodes {
 				manager.toggleToUser("Crystal");
 				((CrystalUser)manager.getCurrentUser()).setState(CRYSTAL_BCC_XL);
 				break;
+			case CRYSTAL_BARIUM:
+				manager.toggleToUser("Barium");
+				break;
 		}
 		
 	}

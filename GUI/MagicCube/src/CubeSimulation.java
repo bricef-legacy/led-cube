@@ -6,6 +6,7 @@ import processing.core.PApplet;
 import utils.CoreAPI;
 import core.MagicCubeData;
 import core.UserManager;
+import cubeUser.BariumTitanateUser;
 import cubeUser.CubeUser;
 import cubeUser.IsingUser;
 import cubeUser.MillerUser;
@@ -103,6 +104,7 @@ public class CubeSimulation extends PApplet{
 		this.manager.adduser(new IsingUser(), "Ising");
 		this.manager.adduser(new MillerUser(1,1,0), "Miller");
 		this.manager.adduser(new CrystalUser(), "Crystal");
+		this.manager.adduser(new BariumTitanateUser(), "Barium");
 		
 		this.manager.toggleToUser("Random");
 		

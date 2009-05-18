@@ -31,6 +31,7 @@ public class P5GUI implements EventCodes{
 	Controller lFcc;
 	Controller sBcc;
 	Controller lBcc;
+	Controller barium;
 	
 	Controller demoToggle;
 	
@@ -114,6 +115,10 @@ public class P5GUI implements EventCodes{
 		 sBcc.setId(CRYSTAL_BCC);
 		 sBcc.addListener(listener);
 		 sBcc.setTab("Crystal");
+		 barium = gui.addButton("Barium Titanate", 10, 10, 190, 102, 20);
+		 barium.setId(CRYSTAL_BARIUM);
+		 barium.addListener(listener);
+		 barium.setTab("Crystal");
 		 
 	  
 	  
