@@ -20,6 +20,7 @@ public interface EventCodes {
 	
 	//options refs
 	final static int WRITE_SERIAL = 10;
+	final static int WRITE_SERIAL_NO = 11;
 	final static int IBOX_ID = 21;
 	final static int JBOX_ID = 22;
 	final static int KBOX_ID = 23;
