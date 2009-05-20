@@ -24,4 +24,7 @@ public interface EventCodes {
 	final static int IBOX_ID = 21;
 	final static int JBOX_ID = 22;
 	final static int KBOX_ID = 23;
+
+	final static int LOAD_BUTTON_ID = 35;
+	final static int SAVE_BUTTON_ID = 36;
 }

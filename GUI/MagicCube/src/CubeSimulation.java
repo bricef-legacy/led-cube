@@ -11,6 +11,8 @@ import cubeUser.IsingUser;
 import cubeUser.MillerUser;
 import cubeUser.SerialTalk;
 import cubeUser.CrystalUser;
+import cubeUser.LoadUser;
+import cubeUser.SaveUser;
 
 
 /**
@@ -104,6 +106,8 @@ public class CubeSimulation extends PApplet{
 		this.manager.adduser(new MillerUser(1,1,0), "Miller");
 		this.manager.adduser(new CrystalUser(), "Crystal");
 		this.manager.adduser(new BariumTitanateUser(), "Barium");
+		this.manager.adduser(new LoadUser(), "Load");
+		this.manager.adduser(new SaveUser(), "Save");
 		
 		this.manager.toggleToUser("Random");
 		

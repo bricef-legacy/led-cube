@@ -11,21 +11,23 @@ import core.AbstractCubeUser;
  */
 public class BariumTitanateUser extends AbstractCubeUser {
 
+	
 	@Override
 	public void loop() {
+		int sleeper = 200;
 		try{
 			int stage = -1;
 			this.BariumTitanate(cube, cube.getSize(), stage);
-			Thread.sleep(50);
+			Thread.sleep(sleeper);
 			stage = -2;
 			this.BariumTitanate(cube, cube.getSize(), stage);
-			Thread.sleep(50);
+			Thread.sleep(sleeper);
 			stage = -1;
 			this.BariumTitanate(cube, cube.getSize(), stage);
-			Thread.sleep(50);
+			Thread.sleep(sleeper);
 			stage = 0;
 			this.BariumTitanate(cube, cube.getSize(), stage);
-			Thread.sleep(50);
+			Thread.sleep(sleeper);
 		}catch(InterruptedException e){
 			System.out.println("[BARIUM]: Error: caughte InterruptedException while running. Comitting suicide.");
 			this.killme();

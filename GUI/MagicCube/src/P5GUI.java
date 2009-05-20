@@ -35,6 +35,9 @@ public class P5GUI implements EventCodes{
 	Controller serialWriteOn;
 	Controller serialWriteOff;
 	
+	Controller loadButton;
+	Controller saveButton;
+	
 	Controller demoToggle;
 	
 	/**
@@ -84,10 +87,17 @@ public class P5GUI implements EventCodes{
 	  
 	  
 	  /*----Utils contoller----*/
-	  Controller utils;
-	  utils=gui.addButton("Load pattern", 10, 10, 40, 102, 20);
-	  utils.setId(UTILS_START_ID);
-	  utils.setTab("Utils");
+
+	  /*----Load and Save Buttons----*/
+	  loadButton = gui.addButton("Load Image",10, 10, 40, 102, 20);
+		 loadButton.setId(LOAD_BUTTON_ID);
+		 loadButton.addListener(listener);
+		 loadButton.setTab("Utils");
+		 
+		 saveButton = gui.addButton("Save Image",10, 10, 70, 102, 20);
+		 saveButton.setId(SAVE_BUTTON_ID);
+		 saveButton.addListener(listener);
+		 saveButton.setTab("Utils");
 	  
 	  /*----Options contoller----*/
 	  serialWriteOn = gui.addButton("Start serial", 10, 10, 40, 102, 20);
@@ -134,7 +144,7 @@ public class P5GUI implements EventCodes{
 	 isingGo.setId(ISING_START_ID);
 	 isingGo.addListener(listener);
 	 isingGo.setTab("Ising Model"); 
-	 isingSlider= gui.addSlider("temperature", 0, 50, 0, 10, 70, 10, 350);//addSlider(theName, theMin, theMax, theDefaultValue, theX, theY, theW, theH);
+	 isingSlider= gui.addSlider("temperature", 0, 15, 0, 10, 70, 10, 350);//addSlider(theName, theMin, theMax, theDefaultValue, theX, theY, theW, theH);
 	 isingSlider.setId(ISING_SLIDER_ID);
 	 isingSlider.setLabel("Temperature");
 	 isingSlider.addListener(listener);
