@@ -1,5 +1,4 @@
 
-
 import javax.media.opengl.GL;
 
 import processing.core.PApplet;
@@ -44,7 +43,7 @@ public class CubeSimulation extends PApplet{
 	GL gl;        //OpenGL class (used to assist rendering)
 	
 	//TODO change this from hard-coded to relative
-	final static String FONT_LOCATION="src/CourierNew36.vlw";
+	final static String FONT_LOCATION="CourierNew36.vlw";
 	EventListener listener;
 	
 	/**
@@ -100,7 +99,7 @@ public class CubeSimulation extends PApplet{
 		
 		
 		this.manager.adduser(new CubeUser(), "Random");
-		this.manager.adduser(new SerialTalk(this, "COM3"), "Serial");
+		//this.manager.adduser(new SerialTalk(this, "COM3"), "Serial");
 		this.manager.adduser(new IsingUser(), "Ising");
 		this.manager.adduser(new MillerUser(1,1,0), "Miller");
 		this.manager.adduser(new CrystalUser(), "Crystal");
@@ -108,8 +107,8 @@ public class CubeSimulation extends PApplet{
 		
 		this.manager.toggleToUser("Random");
 		
-		this.manager.setTalker("Serial");
-		this.manager.startTalker();
+		//this.manager.setTalker("Serial");
+		//this.manager.startTalker();
 		
 		}
 	/**
