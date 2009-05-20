@@ -116,6 +116,12 @@ public class EventListener implements ControlListener, EventCodes {
 			case CRYSTAL_BARIUM:
 				manager.toggleToUser("Barium");
 				break;
+			case WRITE_SERIAL:
+				manager.startTalker();
+				break;
+			case WRITE_SERIAL_NO:
+				manager.stopTalker();
+				break;
 		}
 		
 	}
