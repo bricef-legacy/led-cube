@@ -91,7 +91,15 @@ public class UserManager{
 	 * the physical cube.
 	 */
 	public void startTalker(){
-		if(talker!=null){talker.killme();};
+		if(talker!=null){
+			talker.killme();
+			try {
+				talker.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		};
 		if(talkerName!=null){
 			talker=users.get(talkerName);
 			talker.setCube(this.cube);
@@ -102,7 +110,15 @@ public class UserManager{
 	 * Stops the background thread
 	 */
 	public void stopTalker(){
-		if(talker!=null){talker.killme();};
+		if(talker!=null){
+			talker.killme();
+			try {
+				talker.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			};
 	}
 	/**
 	 * Returns the currently executing thread.
