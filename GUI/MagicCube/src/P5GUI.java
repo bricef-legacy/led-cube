@@ -32,6 +32,8 @@ public class P5GUI implements EventCodes{
 	Controller sBcc;
 	Controller lBcc;
 	Controller barium;
+	Controller serialWriteOn;
+	Controller serialWriteOff;
 	
 	Controller demoToggle;
 	
@@ -88,9 +90,14 @@ public class P5GUI implements EventCodes{
 	  utils.setTab("Utils");
 	  
 	  /*----Options contoller----*/
-	  Toggle serialWrite = gui.addToggle("Write to serial?", false, 10, 40, 10, 10);
-	  serialWrite.setId(WRITE_SERIAL);
-	  serialWrite.setTab("Options");
+	  serialWriteOn = gui.addButton("Start serial", 10, 10, 40, 102, 20);
+	  serialWriteOn.setId(WRITE_SERIAL);
+	  serialWriteOn.setTab("Options");
+	  
+	  serialWriteOff = gui.addButton("Stop serial", 10, 10, 70, 102, 20);
+	  serialWriteOff.setId(WRITE_SERIAL_NO);
+	  serialWriteOff.setTab("Options");
+	  
 	  //idea for options: led size, led separation
 	  
 	  
