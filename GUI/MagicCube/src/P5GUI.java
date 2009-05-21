@@ -3,7 +3,6 @@ import controlP5.ControlP5;
 import controlP5.Controller;
 
 import controlP5.Textfield;
-import controlP5.Toggle;
 
 /**
  * The main Gui for the project. Implements EventCode for convenience.
@@ -103,10 +102,12 @@ public class P5GUI implements EventCodes{
 	  serialWriteOn = gui.addButton("Start serial", 10, 10, 40, 102, 20);
 	  serialWriteOn.setId(WRITE_SERIAL);
 	  serialWriteOn.setTab("Options");
+	  serialWriteOn.addListener(listener);
 	  
 	  serialWriteOff = gui.addButton("Stop serial", 10, 10, 70, 102, 20);
 	  serialWriteOff.setId(WRITE_SERIAL_NO);
 	  serialWriteOff.setTab("Options");
+	  serialWriteOff.addListener(listener);
 	  
 	  //idea for options: led size, led separation
 	  

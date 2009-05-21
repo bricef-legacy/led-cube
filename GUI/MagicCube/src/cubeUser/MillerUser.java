@@ -6,6 +6,7 @@ import core.AbstractCubeUser;
 public class MillerUser extends AbstractCubeUser {
 	int i, j, k;
 	public MillerUser(int tempi, int tempj, int tempk) {
+		this.setName("Miller");
 		this.i=tempi;
 		this.j=tempj;
 		this.k=tempk;

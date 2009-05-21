@@ -13,6 +13,7 @@ public class SaveUser extends AbstractCubeUser {
 	PApplet papp;
 	
 	public SaveUser() {
+		this.setName("Save");
 		papp = new PApplet();
 		
 	}

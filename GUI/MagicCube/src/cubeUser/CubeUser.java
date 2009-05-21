@@ -4,10 +4,14 @@ import core.AbstractCubeUser;
 
 
 public class CubeUser extends AbstractCubeUser {
+	public CubeUser(){
+		this.setName("Random");
+	}
+	
 	@Override
 	public void loop() {
 		int status=(int) (Math.random()*4);
-		int x=(int) (Math.random()*cube.getSize());
+		int x=(int) (Math.random()*this.cube.getSize());
 		int y=(int) (Math.random()*this.getCube().getSize());
 		int z=(int) (Math.random()*this.getCube().getSize());
 		this.getCube().setLED(status, x, y, z);

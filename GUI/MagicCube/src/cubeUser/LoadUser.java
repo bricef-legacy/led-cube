@@ -14,6 +14,7 @@ public class LoadUser extends AbstractCubeUser implements ColorCodes{
 	int C_BLACK, C_RED, C_ORANGE, C_GREEN;
 	
 	public LoadUser(){
+		this.setName("Load");
 		papp = new PApplet();
 		
 		C_BLACK = papp.color(0, 0, 0);

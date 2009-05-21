@@ -5,14 +5,8 @@ import processing.core.PApplet;
 import utils.CoreAPI;
 import core.MagicCubeData;
 import core.UserManager;
-import cubeUser.BariumTitanateUser;
 import cubeUser.CubeUser;
-import cubeUser.IsingUser;
-import cubeUser.MillerUser;
 import cubeUser.SerialTalk;
-import cubeUser.CrystalUser;
-import cubeUser.LoadUser;
-import cubeUser.SaveUser;
 
 
 /**
@@ -99,19 +93,8 @@ public class CubeSimulation extends PApplet{
 		this.listener=new EventListener(this, manager);
 		this.P5Gui =new P5GUI(this, listener);
 		
+		this.manager.toggleToUser(new CubeUser());
 		
-		this.manager.adduser(new CubeUser(), "Random");
-		this.manager.adduser(new SerialTalk(this, "COM1"), "Serial");
-		this.manager.adduser(new IsingUser(), "Ising");
-		this.manager.adduser(new MillerUser(1,1,0), "Miller");
-		this.manager.adduser(new CrystalUser(), "Crystal");
-		this.manager.adduser(new BariumTitanateUser(), "Barium");
-		this.manager.adduser(new LoadUser(), "Load");
-		this.manager.adduser(new SaveUser(), "Save");
-		
-		this.manager.toggleToUser("Random");
-		
-		this.manager.setTalker("Serial");
 		
 		}
 	/**

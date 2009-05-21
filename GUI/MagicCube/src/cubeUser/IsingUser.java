@@ -171,6 +171,7 @@ public class IsingUser extends AbstractCubeUser{
         IsingSystem sys;
         
         public IsingUser(){
+        	this.setName("Ising");
                 this.sys=new IsingSystem();
                 temp = 0;
                 de = 0;
@@ -180,7 +181,7 @@ public class IsingUser extends AbstractCubeUser{
         
         public void setTemp(float temp){
                 this.temp=temp;
-                System.out.printf("[ISING]: current temperature: %f\n", temp);
+                //System.out.printf("[ISING]: current temperature: %f\n", temp);
         }
         
         @Override

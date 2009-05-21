@@ -18,9 +18,10 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 	byte[][] doubleBuffer;
 	Statistics stats=new Statistics();
 	
-	public SerialTalk(PApplet parentapp, String portName){
+	public SerialTalk(String portName, PApplet parent){
+		this.setName("Serial");
 		System.out.println(Serial.list()[0]);
-		myPort = new Serial(parentapp, portName, 9600);//must match the baud rate on the arduino.
+		myPort = new Serial(parent, portName, 9600);//must match the baud rate on the arduino.
 	}
 	
 		
@@ -118,7 +119,7 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 		System.out.println("[SERIAL]: Checking for readiness: ");
 	      while(returned!=INIT_OK){
 	    	  SSend(INIT_IS_READY);
-	        returned=myPort.read();
+	        //returned=myPort.read();
 	        //System.out.println(returned);
 	      }
 	      returned = 0;
@@ -210,7 +211,7 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 		  
 
 	public void SSend(int toSend){
-		System.out.println(processing.core.PApplet.binary(toSend,8));
+		//System.out.println(processing.core.PApplet.binary(toSend,8));
 		try{ //TODO Fix ifs...
 			//if(myPort.available()==1){
 				myPort.write(toSend);

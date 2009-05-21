@@ -10,7 +10,9 @@ import core.AbstractCubeUser;
  *
  */
 public class BariumTitanateUser extends AbstractCubeUser {
-
+	public BariumTitanateUser(){
+		this.setName("Barium");
+	}
 	
 	@Override
 	public void loop() {
