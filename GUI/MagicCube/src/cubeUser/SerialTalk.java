@@ -22,7 +22,7 @@ public class SerialTalk extends AbstractCubeUser implements OpCodes, ColorCodes{
 		this.setName("Serial");
 		System.out.println(Serial.list()[0]);
 		try{
-		myPort = new Serial(parent, portName, 9600);//must match the baud rate on the arduino.
+		myPort = new Serial(parent, portName, 115200);//must match the baud rate on the arduino.
 		}catch(Exception e){
 			e.printStackTrace();
 		}

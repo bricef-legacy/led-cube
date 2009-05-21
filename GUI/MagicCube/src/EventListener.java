@@ -11,6 +11,7 @@ import cubeUser.MillerUser;
 import cubeUser.CrystalUser;
 import cubeUser.SaveUser;
 import cubeUser.SerialTalk;
+import cubeUser.SpeedySerialTalk;
 
 /**
  * This event listener handles all events thrown by the gui. an inner switch statement decides on the 
@@ -107,7 +108,7 @@ public class EventListener implements ControlListener, EventCodes {
 				break;
 
 			case WRITE_SERIAL:
-				manager.startTalker(new SerialTalk("COM4", sim));
+				manager.startTalker(new SpeedySerialTalk("COM4", sim));
 				break;
 			case WRITE_SERIAL_NO:
 				manager.stopTalker();

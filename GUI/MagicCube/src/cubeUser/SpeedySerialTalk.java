@@ -26,15 +26,14 @@ public class SpeedySerialTalk extends AbstractCubeUser implements OpCodes, Color
 	public SpeedySerialTalk(String portName, PApplet parent){
 		this.setName("Serial");
 		myPort = new Serial(parent, portName, 115200);//must match the baud rate on the arduino.
+		doubleBuffer=new byte[8][32];
 	}
 	
 		
 	@Override
 	public void loop(){
-		before=System.currentTimeMillis();
 		acked=false;
-		mycube=this.getCube().readCube();
-	    doubleBuffer=new byte[8][32];
+		mycube=this.cube.readCube();
 		
 	    while(returned!=INIT_OK){
 	    	myPort.write(INIT_IS_READY);
@@ -122,16 +121,7 @@ public class SpeedySerialTalk extends AbstractCubeUser implements OpCodes, Color
 			    	throw new Exception("[SERIAL]: the arduino board does not seem to be responding (NO CUBE ACK)");
 			    }
 		    }
-			
-			
-			long after = System.currentTimeMillis();
-			long foo=after-before;
-			stats.add(foo);
-			System.out.printf("[SERIAL]: Cube sent successfully in: %dms (%dms avg)\n\n", foo, stats.average());
-	        
 	   }catch(Exception e){
-		//e.printStackTrace();
-	    //System.exit(1);
 	   } 
 	}
 }

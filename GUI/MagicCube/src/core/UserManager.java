@@ -48,15 +48,9 @@ public class UserManager{
 	 */
 	public void startTalker(AbstractCubeUser talker){
 		System.out.println("[MANAGER]: Starting talker: "+talker.getName());
-		if(this.talker!=null && !this.talker.getState().equals(Thread.State.TERMINATED)){
-			this.talker.killme();
-			try {
-				this.talker.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		System.out.println("[MANAGER]:\t Stop old talker:");
+		this.stopTalker();
+		System.out.println("[MANAGER]:\t Start new talker:");
 		this.talker=talker;
 		this.talker.setCube(cube);
 		this.talker.start();
@@ -67,9 +61,9 @@ public class UserManager{
 	public void stopTalker(){
 		System.out.println("[MANAGER]: Killing talker.");
 		if(talker!=null && !talker.getState().equals(Thread.State.TERMINATED)){
-			talker.killme();
+			this.talker.killme();
 			try {
-				talker.join();
+				this.talker.join(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
