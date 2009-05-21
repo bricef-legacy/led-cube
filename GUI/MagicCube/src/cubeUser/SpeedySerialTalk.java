@@ -22,11 +22,14 @@ public class SpeedySerialTalk extends AbstractCubeUser implements OpCodes, Color
 	boolean acked;
 	int[][][] mycube;
     byte temp;
+    Exception myex;
+    int opcode;
 	
 	public SpeedySerialTalk(String portName, PApplet parent){
 		this.setName("Serial");
 		myPort = new Serial(parent, portName, 115200);//must match the baud rate on the arduino.
 		doubleBuffer=new byte[8][32];
+		myex=new Exception();
 	}
 	
 		
@@ -100,11 +103,11 @@ public class SpeedySerialTalk extends AbstractCubeUser implements OpCodes, Color
 		        myPort.write(BEGIN_LAYER);
 		        myPort.write(doubleBuffer[j]);
 		        myPort.write(END_LAYER);
-		        int opcode = myPort.read();
+		        opcode = myPort.read();
 		        time = System.currentTimeMillis();
 		        while(!acked){
 					if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
-						throw new Exception("[SERIAL]: The arduino board does not seem to be responding (NO LAYER ACK)");
+						throw myex;
 					}
 					if(opcode==LAYER_ACK_SUCCESS){
 						acked=true;
@@ -118,7 +121,7 @@ public class SpeedySerialTalk extends AbstractCubeUser implements OpCodes, Color
 	        time = System.currentTimeMillis();
 			while(myPort.read()!=CUBE_SUCCESS){
 			    if(System.currentTimeMillis()-time>MAX_WAIT_MILLIS){
-			    	throw new Exception("[SERIAL]: the arduino board does not seem to be responding (NO CUBE ACK)");
+			    	throw myex;
 			    }
 		    }
 	   }catch(Exception e){
