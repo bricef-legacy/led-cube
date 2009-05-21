@@ -47,15 +47,26 @@ public class UserManager{
 	 * the physical cube.
 	 */
 	public void startTalker(AbstractCubeUser talker){
+		System.out.println("[MANAGER]: Starting talker: "+talker.getName());
+		if(this.talker!=null && !this.talker.getState().equals(Thread.State.TERMINATED)){
+			this.talker.killme();
+			try {
+				this.talker.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		this.talker=talker;
-		talker.setCube(cube);
+		this.talker.setCube(cube);
 		this.talker.start();
 	}
 	/**
 	 * Stops the background thread
 	 */
 	public void stopTalker(){
-		if(talker!=null && talker.getState().equals(Thread.State.TERMINATED)){
+		System.out.println("[MANAGER]: Killing talker.");
+		if(talker!=null && !talker.getState().equals(Thread.State.TERMINATED)){
 			talker.killme();
 			try {
 				talker.join();
