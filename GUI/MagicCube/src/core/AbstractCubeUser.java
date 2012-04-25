@@ -12,6 +12,7 @@ import utils.CoreAPI;
 public abstract class AbstractCubeUser extends Thread{
 	protected CoreAPI cube;
 	private boolean killme=false;
+	
 	/**
 	 * Accessor for this class's cube
 	 * @return The stored cube implementor of CoreAPI
@@ -32,7 +33,7 @@ public abstract class AbstractCubeUser extends Thread{
 	@Override 
 	public void run(){
 		while(!killme){
-				loop();
+			loop();
 		}
 	}
 	
@@ -50,6 +51,5 @@ public abstract class AbstractCubeUser extends Thread{
 	 */
 	public void killme() {
 		this.killme=true;
-		//System.out.println(this.getName()+" now going to lala land.");
 	}
 }

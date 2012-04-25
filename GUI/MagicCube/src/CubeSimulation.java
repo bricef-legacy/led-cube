@@ -1,4 +1,5 @@
 
+
 import javax.media.opengl.GL;
 
 import processing.core.PApplet;
@@ -6,6 +7,8 @@ import utils.CoreAPI;
 import core.MagicCubeData;
 import core.UserManager;
 import cubeUser.CubeUser;
+import cubeUser.IsingUser;
+import cubeUser.MillerUser;
 import cubeUser.SerialTalk;
 
 
@@ -39,7 +42,7 @@ public class CubeSimulation extends PApplet{
 	GL gl;        //OpenGL class (used to assist rendering)
 	
 	//TODO change this from hard-coded to relative
-	final static String FONT_LOCATION="CourierNew36.vlw";
+	final static String FONT_LOCATION="D:/FILES/PHY343/repo/GUI/MagicCube/src/CourierNew36.vlw";
 	EventListener listener;
 	
 	/**
@@ -93,8 +96,16 @@ public class CubeSimulation extends PApplet{
 		this.listener=new EventListener(this, manager);
 		this.P5Gui =new P5GUI(this, listener);
 		
-		this.manager.toggleToUser(new CubeUser());
 		
+		this.manager.adduser(new CubeUser(), "Random");
+		this.manager.adduser(new SerialTalk(this, "COM3"), "Serial");
+		this.manager.adduser(new IsingUser(), "Ising");
+		this.manager.adduser(new MillerUser(1,1,0), "Miller");
+		
+		this.manager.toggleToUser("Random");
+		
+		this.manager.setTalker("Serial");
+		this.manager.startTalker();
 		
 		}
 	/**

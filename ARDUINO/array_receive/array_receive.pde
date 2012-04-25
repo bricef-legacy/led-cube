@@ -11,7 +11,7 @@
 
 /*---different waits for timeouts---*/
 #define MAX_WAIT_MILLIS 500
-#define MAX_LAYER_WAIT 200
+#define MAX_LAYER_WAIT 25
 #define ERROR_DURATION 250
 
 /*---State machine states---*/
@@ -22,17 +22,6 @@
 #define WAIT_LAYER_END 4
 #define ERROR_STATE 5
 #define WAIT_END_CUBE 6
-
-//Output port, and Data direction register.
-#define PORTZ PORTC
-#define DDRZ DDRC
-
-//Clock pins for shift register and layer clocks.
-#define CLKON B010000
-#define LAYERCLK B100000
-
-//arduino output pin for initial layer toggle
-#define LAYERTOG 3
 
 
 byte cubeDraw[8][32];
@@ -54,16 +43,11 @@ void setup(void) {
 	RESET_TIMER2;
 	sei();
 	
-        //DRAWING PINS + DDR
-        pinMode(LAYERTOG, OUTPUT);
-        DDRZ = B00111111;
-
 	/**
 	 * Begin serial communications
 	 */
-	Serial.begin(9600);
+	Serial.begin(115200);
         pinMode(12, OUTPUT);
-        pinMode(13, OUTPUT);        
 
 }
 
@@ -102,7 +86,6 @@ switch(status){
 		if(waitForOpcode(BEGIN_LAYER)){
 			status=RECEIVING_LAYER;
 		}else{
-                        //NOT GET HERE
 			status=ERROR_STATE;
 		};
 		break;
@@ -171,13 +154,8 @@ void SSend(byte opcode){
 boolean getLayer(int layer){
 	unsigned long time = millis();
 	for(int i=0; i<numbytes; i++){
-          while(!Serial.available())
-          {
-            
-          }
 		if (Serial.available()){
 			val = Serial.read();
-                        digitalWrite(13, HIGH);
 			doubleBuffer[layer][i]=val;
 			if(val==END_LAYER){
 				return false;

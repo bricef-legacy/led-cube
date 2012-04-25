@@ -1,8 +1,9 @@
 import utils.EventCodes;
 import controlP5.ControlP5;
 import controlP5.Controller;
-
+import controlP5.Radio;
 import controlP5.Textfield;
+import controlP5.Toggle;
 
 /**
  * The main Gui for the project. Implements EventCode for convenience.
@@ -22,20 +23,6 @@ public class P5GUI implements EventCodes{
 	//Ising controller
 	Controller isingGo;
 	Controller isingSlider;
-	Controller rad;
-	
-	//crystal stuff
-	Controller sc;
-	Controller sFcc;
-	Controller lFcc;
-	Controller sBcc;
-	Controller lBcc;
-	Controller barium;
-	Controller serialWriteOn;
-	Controller serialWriteOff;
-	
-	Controller loadButton;
-	Controller saveButton;
 	
 	Controller demoToggle;
 	
@@ -76,7 +63,7 @@ public class P5GUI implements EventCodes{
 	  welcomeText+="    Tomas Loussert\n";
 	  welcomeText+="    Michael Overington\n";
 	  welcomeText+="    Edward Overton\n";
-	  welcomeText+="    Christopher Ryan\n";
+	  welcomeText+="    Chris Ryan\n";
 	  welcomeText+="\n";
 	  welcomeText+="Supervisor: Dr Martin Grell\n";
 	  welcomeText+="\n";
@@ -86,58 +73,27 @@ public class P5GUI implements EventCodes{
 	  
 	  
 	  /*----Utils contoller----*/
-
-	  /*----Load and Save Buttons----*/
-	  loadButton = gui.addButton("Load Image",10, 10, 40, 102, 20);
-		 loadButton.setId(LOAD_BUTTON_ID);
-		 loadButton.addListener(listener);
-		 loadButton.setTab("Utils");
-		 
-		 saveButton = gui.addButton("Save Image",10, 10, 70, 102, 20);
-		 saveButton.setId(SAVE_BUTTON_ID);
-		 saveButton.addListener(listener);
-		 saveButton.setTab("Utils");
+	  Controller utils;
+	  utils=gui.addButton("Load pattern", 10, 10, 40, 102, 20);
+	  utils.setId(UTILS_START_ID);
+	  utils.setTab("Utils");
 	  
 	  /*----Options contoller----*/
-	  serialWriteOn = gui.addButton("Start serial", 10, 10, 40, 102, 20);
-	  serialWriteOn.setId(WRITE_SERIAL);
-	  serialWriteOn.setTab("Options");
-	  serialWriteOn.addListener(listener);
-	  
-	  serialWriteOff = gui.addButton("Stop serial", 10, 10, 70, 102, 20);
-	  serialWriteOff.setId(WRITE_SERIAL_NO);
-	  serialWriteOff.setTab("Options");
-	  serialWriteOff.addListener(listener);
-	  
+	  Toggle serialWrite = gui.addToggle("Write to serial?", false, 10, 40, 10, 10);
+	  serialWrite.setId(WRITE_SERIAL);
+	  serialWrite.setTab("Options");
 	  //idea for options: led size, led separation
 	  
 	  
 	  /*----Crystal sturcture gui elements----*/
-	  sc = gui.addButton("Simple Cubic",10, 10, 40, 102, 20);
-		 sc.setId(CRYSTAL_SC);
-		 sc.addListener(listener);
-		 sc.setTab("Crystal");
-	  lFcc = gui.addButton("Large FCC",10, 10, 70, 102, 20);
-		 lFcc.setId(CRYSTAL_FCC_XL);
-		 lFcc.addListener(listener);
-		 lFcc.setTab("Crystal");
-	sFcc = gui.addButton("Small FCC",10, 10, 100, 102, 20);
-		 sFcc.setId(CRYSTAL_FCC);
-		 sFcc.addListener(listener);
-		 sFcc.setTab("Crystal");
-	lBcc = gui.addButton("Large BCC",10, 10, 130, 102, 20);
-		 lBcc.setId(CRYSTAL_BCC_XL);
-		 lBcc.addListener(listener);
-		 lBcc.setTab("Crystal");
-	sBcc = gui.addButton("Small BCC",10, 10, 160, 102, 20);
-		 sBcc.setId(CRYSTAL_BCC);
-		 sBcc.addListener(listener);
-		 sBcc.setTab("Crystal");
-		 barium = gui.addButton("Barium Titanate", 10, 10, 190, 102, 20);
-		 barium.setId(CRYSTAL_BARIUM);
-		 barium.addListener(listener);
-		 barium.setTab("Crystal");
-		 
+	  Radio r = gui.addRadio("radio",10,40);
+	  r.addItem("Large SC", CRYSTAL_SC);
+	  r.addItem("Small FCC",CRYSTAL_FCC);
+	  r.addItem("Large FCC",CRYSTAL_FCC_XL);
+	  r.addItem("Small BCC",CRYSTAL_BCC);
+	  r.addItem("Large BCC",CRYSTAL_BCC_XL);
+	  r.setTab("Crystal");
+	  
 	  
 	  
 	 /*----Ising model Gui elements----*/
@@ -145,7 +101,7 @@ public class P5GUI implements EventCodes{
 	 isingGo.setId(ISING_START_ID);
 	 isingGo.addListener(listener);
 	 isingGo.setTab("Ising Model"); 
-	 isingSlider= gui.addSlider("temperature", 0, 15, 0, 10, 70, 10, 350);//addSlider(theName, theMin, theMax, theDefaultValue, theX, theY, theW, theH);
+	 isingSlider= gui.addSlider("temperature", 0, 50, 0, 10, 70, 10, 350);//addSlider(theName, theMin, theMax, theDefaultValue, theX, theY, theW, theH);
 	 isingSlider.setId(ISING_SLIDER_ID);
 	 isingSlider.setLabel("Temperature");
 	 isingSlider.addListener(listener);

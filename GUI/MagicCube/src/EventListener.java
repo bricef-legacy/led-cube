@@ -3,15 +3,9 @@ import utils.EventCodes;
 import controlP5.ControlEvent;
 import controlP5.ControlListener;
 import core.UserManager;
-import cubeUser.BariumTitanateUser;
 import cubeUser.CubeUser;
 import cubeUser.IsingUser;
-import cubeUser.LoadUser;
 import cubeUser.MillerUser;
-import cubeUser.CrystalUser;
-import cubeUser.SaveUser;
-import cubeUser.SerialTalk;
-import cubeUser.SpeedySerialTalk;
 
 /**
  * This event listener handles all events thrown by the gui. an inner switch statement decides on the 
@@ -46,11 +40,18 @@ public class EventListener implements ControlListener, EventCodes {
 	 */
 	@Override
 	public void controlEvent(ControlEvent event) {
-		//System.out.println("[LISTENER]: received event: "+event.toString());
-		//System.out.println(event.controller().id());
+		System.out.println("[LISTENER]: received event: "+event.toString());
+		if(event.isTab()){
+			if(event.tab().id()==HOME_TAB_EVENT){
+				System.out.println("[LISTENER]: Returning to hometab, Starting randomiser");
+				manager.adduser(new CubeUser(), "Random");
+				manager.toggleToUser("Random");
+			}
+		}
 		switch(event.controller().id()){
 			case DEMO_TOGGLE:
-				manager.toggleToUser(new CubeUser());
+				manager.adduser(new CubeUser(), "Random");
+				manager.toggleToUser("Random");
 				break;
 		
 			case MILLER_START_ID:
@@ -62,58 +63,30 @@ public class EventListener implements ControlListener, EventCodes {
 					System.out.println("[LISTENER]: Invald format for the miller indices. please enter integers");
 					break;
 				}
-				manager.toggleToUser(new MillerUser(tempi, tempj, tempk));
+				MillerUser tempUser = new MillerUser(tempi, tempj, tempk);
+				manager.adduser(tempUser, "Miller");
+				manager.toggleToUser("Miller");
+				break;
+			case IBOX_ID:
+				tempi=Integer.decode(((controlP5.Textfield)event.controller()).getText());
+				//System.out.println(tempi);
+				break;
+			case JBOX_ID:
+				tempj=Integer.decode(((controlP5.Textfield)event.controller()).getText());
+				break;
+			case KBOX_ID:
+				tempk=Integer.decode(((controlP5.Textfield)event.controller()).getText());
 				break;
 			case ISING_SLIDER_ID:
-				if(manager.getCurrentUser().getClass().equals(IsingUser.class)){
+				if(manager.getCurrentuserName().equals("Ising")){
 					((IsingUser)manager.getCurrentUser()).setTemp(event.value());
 				}else{
 					System.out.println("[LISTENER]: Ising sim not running. Ignoring Ising slider event.");
 				}
 				break;
 			case ISING_START_ID:
-				manager.toggleToUser(new IsingUser());
+				manager.toggleToUser("Ising");
 				break;
-				
-			case CRYSTAL_SC:
-				manager.toggleToUser(new CrystalUser(CRYSTAL_SC));
-				break;
-				
-			case CRYSTAL_FCC:
-				manager.toggleToUser(new CrystalUser(CRYSTAL_FCC));
-				break;
-				
-			case CRYSTAL_FCC_XL:
-				manager.toggleToUser(new CrystalUser(CRYSTAL_FCC_XL));
-				break;
-				
-			case CRYSTAL_BCC:
-				manager.toggleToUser(new CrystalUser(CRYSTAL_BCC));
-				break;
-				
-			case CRYSTAL_BCC_XL:
-				manager.toggleToUser(new CrystalUser(CRYSTAL_BCC_XL));
-				break;
-			case CRYSTAL_BARIUM:
-				manager.toggleToUser(new BariumTitanateUser());
-				break;
-
-				
-			case LOAD_BUTTON_ID:
-				manager.toggleToUser(new LoadUser());
-				break;
-				
-			case SAVE_BUTTON_ID:
-				manager.toggleToUser(new SaveUser());
-				break;
-
-			case WRITE_SERIAL:
-				manager.startTalker(new SpeedySerialTalk("COM4", sim));
-				break;
-			case WRITE_SERIAL_NO:
-				manager.stopTalker();
-				break;
-
 		}
 		
 	}

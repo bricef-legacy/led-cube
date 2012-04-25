@@ -1,6 +1,5 @@
 package utils;
 
-
 public interface EventCodes {
 	//The event refs
 	final static int MILLER_START_ID=100;
@@ -16,15 +15,10 @@ public interface EventCodes {
 	final static int CRYSTAL_FCC_XL = 3;
 	final static int CRYSTAL_BCC = 4;
 	final static int CRYSTAL_BCC_XL = 5;
-	final static int CRYSTAL_BARIUM = 6;
 	
 	//options refs
 	final static int WRITE_SERIAL = 10;
-	final static int WRITE_SERIAL_NO = 11;
 	final static int IBOX_ID = 21;
 	final static int JBOX_ID = 22;
 	final static int KBOX_ID = 23;
-
-	final static int LOAD_BUTTON_ID = 35;
-	final static int SAVE_BUTTON_ID = 36;
 }

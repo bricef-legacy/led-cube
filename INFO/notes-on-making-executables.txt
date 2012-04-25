@@ -1,4 +1,0 @@
-NOTES
-=====
-
-Executables can be made using ctrl-shft-E in processing 1.0.3, or via file > export application.
